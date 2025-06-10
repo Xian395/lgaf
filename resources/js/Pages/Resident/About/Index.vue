@@ -1,5 +1,5 @@
 <template>
-    <ResidentLayout>
+  <ResidentLayout>
        
 
         <div class="py-12">
@@ -10,7 +10,7 @@
                     <div class="p-6 text-black">
                         <div class="mb-8 text-center">
                             <h1 class="text-3xl font-bold text-black mb-4">
-                               Request Assistance page
+                              About page
                             </h1>
                            
                         </div>

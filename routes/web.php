@@ -3,8 +3,11 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\AboutController;
+use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\AssistanceController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\StaffDashboardController;
 use App\Http\Controllers\ResidentDashboardController;
@@ -40,7 +43,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/feedback/create', [FeedbackController::class, 'create'])->name('feedback.create');
         Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
         
-        // Add more resident routes here as needed
+        Route::get('/assistance', [AssistanceController::class, 'index'])->name('assistance.index');
+        Route::get('/assistance/create', [AssistanceController::class, 'create'])->name('assistance.create');
+        Route::post('/assistance', [AssistanceController::class, 'store'])->name('assistance.store');
+
+        Route::get('/issue', [IssueController::class, 'index'])->name('issue.index');
+        Route::get('/issue/create', [IssueController::class, 'create'])->name('issue.create');
+        Route::post('/issue', [IssueController::class, 'store'])->name('issue.store');
+
+
+        Route::get('/about', [AboutController::class, 'index'])->name('about.index');
+
     });
     
 });

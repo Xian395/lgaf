@@ -36,9 +36,17 @@
             </Link>
           </li>
           <li>
-            <a href="#" class="block py-2 px-3 text-sky-800 rounded hover:bg-sky-200 md:hover:bg-transparent md:border-0 md:hover:text-sky-600 md:p-0 dark:text-sky-100 md:dark:hover:text-sky-400 dark:hover:bg-sky-700 dark:hover:text-white md:dark:hover:bg-transparent">
-              Request Assistance
-            </a>
+           <Link 
+              :href="route('resident.assistance.index')" 
+              :class="[
+                'block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-sky-600 md:p-0 dark:hover:bg-sky-700 dark:hover:text-white md:dark:hover:bg-transparent',
+                route().current('resident.assistance.index') 
+                  ? 'text-sky-600 bg-sky-200 md:bg-transparent md:text-sky-600 dark:text-sky-400' 
+                  : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 md:dark:hover:text-sky-400'
+              ]"
+            >
+              Assistance
+            </Link>
           </li>
           
           <li>
@@ -55,14 +63,30 @@
             </Link>
           </li>
           <li>
-            <a href="#" class="block py-2 px-3 text-sky-800 rounded hover:bg-sky-200 md:hover:bg-transparent md:border-0 md:hover:text-sky-600 md:p-0 dark:text-sky-100 md:dark:hover:text-sky-400 dark:hover:bg-sky-700 dark:hover:text-white md:dark:hover:bg-transparent">
+            <Link 
+              :href="route('resident.issue.index')" 
+              :class="[
+                'block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-sky-600 md:p-0 dark:hover:bg-sky-700 dark:hover:text-white md:dark:hover:bg-transparent',
+                route().current('resident.issue.index') 
+                  ? 'text-sky-600 bg-sky-200 md:bg-transparent md:text-sky-600 dark:text-sky-400' 
+                  : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 md:dark:hover:text-sky-400'
+              ]"
+            >
               Report Issue
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#" class="block py-2 px-3 text-sky-800 rounded hover:bg-sky-200 md:hover:bg-transparent md:border-0 md:hover:text-sky-600 md:p-0 dark:text-sky-100 md:dark:hover:text-sky-400 dark:hover:bg-sky-700 dark:hover:text-white md:dark:hover:bg-transparent">
+             <Link 
+              :href="route('resident.about.index')" 
+              :class="[
+                'block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-sky-600 md:p-0 dark:hover:bg-sky-700 dark:hover:text-white md:dark:hover:bg-transparent',
+                route().current('resident.about.index') 
+                  ? 'text-sky-600 bg-sky-200 md:bg-transparent md:text-sky-600 dark:text-sky-400' 
+                  : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 md:dark:hover:text-sky-400'
+              ]"
+            >
               About
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
@@ -134,9 +158,18 @@
           </Link>
         </li>
         <li>
-          <a href="#" class="block py-2 px-3 text-sky-800 rounded hover:bg-sky-200 dark:text-sky-100 dark:hover:bg-sky-700">
-            Request Assistance
-          </a>
+          <Link 
+            :href="route('resident.assistance.index')" 
+            :class="[
+              'block py-2 px-3 rounded',
+              route().current('resident.assistance.index') 
+                ? 'text-white bg-sky-600' 
+                : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 dark:hover:bg-sky-700'
+            ]"
+          >
+           Request Assistance
+          </Link>
+          
         </li>
         <li>
           <Link 
@@ -152,14 +185,30 @@
           </Link>
         </li>
         <li>
-          <a href="#" class="block py-2 px-3 text-sky-800 rounded hover:bg-sky-200 dark:text-sky-100 dark:hover:bg-sky-700">
+         <Link 
+            :href="route('resident.issue.index')" 
+            :class="[
+              'block py-2 px-3 rounded',
+              route().current('resident.issue.index') 
+                ? 'text-white bg-sky-600' 
+                : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 dark:hover:bg-sky-700'
+            ]"
+          >
             Report Issue
-          </a>
+          </Link>
         </li>
         <li>
-          <a href="#" class="block py-2 px-3 text-sky-800 rounded hover:bg-sky-200 dark:text-sky-100 dark:hover:bg-sky-700">
+        <Link 
+            :href="route('resident.about.index')" 
+            :class="[
+              'block py-2 px-3 rounded',
+              route().current('resident.about.index') 
+                ? 'text-white bg-sky-600' 
+                : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 dark:hover:bg-sky-700'
+            ]"
+          >
             About
-          </a>
+          </Link>
         </li>
         
         
