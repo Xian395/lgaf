@@ -1,4 +1,15 @@
-##Installition Guide
-##php artisan migrate
-##php artisan db:seed --class=UserSeeder
-##npm install
+# Installation Guide
+
+## Setup Instructions
+
+```bash
+php artisan migrate
+```
+
+```bash
+php artisan db:seed --class=UserSeeder
+```
+
+```bash
+npm install
+```
