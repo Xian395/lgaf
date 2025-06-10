@@ -24,10 +24,11 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         $user = $request->user();
-        $url = match ($user->role) {
+          $url = match ($user->role) {
             'admin' => route('admin.dashboard'),
+            'staff' => route('staff.dashboard'),
             'resident' => route('resident.dashboard'),
-            default => route('resident.dashboard'), 
+            default => route('resident.dashboard'),
         };
 
         return redirect()->intended($url);

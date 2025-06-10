@@ -215,7 +215,6 @@ const getUserInitials = (name) => {
     .substring(0, 2);
 };
 
-// Close dropdowns when clicking outside
 const handleClickOutside = (event) => {
   if (!event.target.closest('#user-menu-button') && !event.target.closest('#user-dropdown')) {
     showUserDropdown.value = false;

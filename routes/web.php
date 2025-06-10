@@ -1,11 +1,12 @@
 <?php
 
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\StaffDashboardController;
 use App\Http\Controllers\ResidentDashboardController;
-use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -35,10 +36,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware('role:admin')
         ->name('admin.dashboard');
 
+    Route::get('/staff/dashboard', [StaffDashboardController::class, 'index'])
+        ->middleware('role:staff')
+        ->name('staff.dashboard');
+
     Route::get('/resident/dashboard', [ResidentDashboardController::class, 'index'])
         ->middleware('role:resident')
         ->name('resident.dashboard');
 });
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
