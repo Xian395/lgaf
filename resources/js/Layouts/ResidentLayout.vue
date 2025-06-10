@@ -41,9 +41,17 @@
             </a>
           </li>
           <li>
-            <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+            <Link 
+              :href="route('resident.feedback.index')" 
+              :class="[
+                'block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent',
+                route().current('resident.feedback.index') 
+                  ? 'text-blue-700 bg-blue-50 md:bg-transparent md:text-blue-700 dark:text-blue-500' 
+                  : 'text-gray-900 hover:bg-gray-100 dark:text-white md:dark:hover:text-blue-500'
+              ]"
+            >
               Feedback
-            </a>
+            </Link>
           </li>
           <li>
             <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
@@ -136,9 +144,17 @@
           </a>
         </li>
         <li>
-          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+          <Link 
+            :href="route('resident.feedback.index')" 
+            :class="[
+              'block py-2 px-3 rounded',
+              route().current('resident.feedback.index') 
+                ? 'text-white bg-blue-700' 
+                : 'text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
+            ]"
+          >
             Feedback
-          </a>
+          </Link>
         </li>
         <li>
           <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
