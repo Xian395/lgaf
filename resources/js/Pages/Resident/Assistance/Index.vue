@@ -6,7 +6,6 @@
           class="bg-white overflow-hidden shadow-sm sm:rounded-lg border-2 border-gray-300"
         >
           <div class="p-6 text-black">
-            <!-- Welcome Title and Message -->
             <div class="mb-8 text-center">
               <h1 class="text-3xl font-bold text-black mb-4">
                 Request Assistance
@@ -18,7 +17,6 @@
             </div>
 
             <form @submit.prevent="submit">
-              <!-- Client Information -->
               <div class="mb-6">
                 <button
                   type="button"
@@ -809,12 +807,12 @@
 
               <!-- Submit -->
               <div class="flex items-center justify-end mt-6">
-                <Link
+                <!-- <Link
                   :href="route('resident.dashboard')"
                   class="underline text-sm text-black hover:text-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black"
                 >
                   Back to Dashboard
-                </Link>
+                </Link> -->
                 <ButtonNew
                   types="save"
                   size="md"
@@ -919,7 +917,6 @@ const removeFamilyMember = (index) => {
 };
 
 const submit = () => {
-  // Map family array to individual fields
   const data = {
     ...form.data(),
     ...form.family.reduce(
@@ -935,7 +932,6 @@ const submit = () => {
     ),
   };
 
-  // Clear unused family fields
   for (let i = form.family.length + 1; i <= 5; i++) {
     data[`fam${i}_fullname`] = null;
     data[`fam${i}_sex`] = null;

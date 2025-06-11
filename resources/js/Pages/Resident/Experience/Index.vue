@@ -148,7 +148,7 @@ import { notifyMinimal } from "@/globalFunctions.js";
 import ButtonNew from "@/Components/ButtonNew.vue";
 
 const courteousStaffOptions = ['Yes', 'No', 'Somewhat'];
-const completionTimeOptions = ['Less than 10 minutes', '10–30 minutes', 'More than 30 minutes', 'I didn\'t complete it'];
+const completionTimeOptions = ['Less than 10 minutes', '10–30 minutes', 'More than 30 minutes', 'I did not complete it'];
 const easyToUnderstandOptions = ['Yes', 'No', 'Somewhat'];
 
 const form = useForm({

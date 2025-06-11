@@ -19,7 +19,7 @@ class ServiceExperienceController extends Controller
         $validated = $request->validate([
             'rating' => 'required|integer|between:1,5',
             'courteous_staff' => 'required|in:Yes,No,Somewhat',
-            'completion_time' => 'required|in:Less than 10 minutes,10–30 minutes,More than 30 minutes,I didn’t complete it',
+           'completion_time' => 'required|in:Less than 10 minutes,10–30 minutes,More than 30 minutes,I did not complete it',
             'easy_to_understand' => 'required|in:Yes,No,Somewhat',
         ]);
 
