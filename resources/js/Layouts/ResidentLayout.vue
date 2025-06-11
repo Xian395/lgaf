@@ -64,15 +64,15 @@
           </li>
           <li>
             <Link 
-              :href="route('resident.issue.index')" 
+              :href="route('resident.experience.index')" 
               :class="[
                 'block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-sky-600 md:p-0 dark:hover:bg-sky-700 dark:hover:text-white md:dark:hover:bg-transparent',
-                route().current('resident.issue.index') 
+                route().current('resident.experience.index') 
                   ? 'text-sky-600 bg-sky-200 md:bg-transparent md:text-sky-600 dark:text-sky-400' 
                   : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 md:dark:hover:text-sky-400'
               ]"
             >
-              Report Issue
+              Service Experience
             </Link>
           </li>
           <li>
@@ -186,15 +186,15 @@
         </li>
         <li>
          <Link 
-            :href="route('resident.issue.index')" 
+            :href="route('resident.experience.index')" 
             :class="[
               'block py-2 px-3 rounded',
-              route().current('resident.issue.index') 
+              route().current('resident.experience.index') 
                 ? 'text-white bg-sky-600' 
                 : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 dark:hover:bg-sky-700'
             ]"
           >
-            Report Issue
+            Service Experience
           </Link>
         </li>
         <li>

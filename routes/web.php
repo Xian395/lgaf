@@ -1,10 +1,10 @@
 <?php
 
+use App\Http\Controllers\ServiceExperienceController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\IssueController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AssistanceController;
@@ -47,9 +47,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/assistance/create', [AssistanceController::class, 'create'])->name('assistance.create');
         Route::post('/assistance', [AssistanceController::class, 'store'])->name('assistance.store');
 
-        Route::get('/issue', [IssueController::class, 'index'])->name('issue.index');
-        Route::get('/issue/create', [IssueController::class, 'create'])->name('issue.create');
-        Route::post('/issue', [IssueController::class, 'store'])->name('issue.store');
+        Route::get('/experience', [ServiceExperienceController::class, 'index'])->name('experience.index');
+        Route::get('/experience/create', [ServiceExperienceController::class, 'create'])->name('experience.create');
+        Route::post('/experience', [ServiceExperienceController::class, 'store'])->name('experience.store');
+
 
 
         Route::get('/about', [AboutController::class, 'index'])->name('about.index');
