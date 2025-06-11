@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ServiceExperienceController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -11,6 +10,8 @@ use App\Http\Controllers\AssistanceController;
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\StaffDashboardController;
 use App\Http\Controllers\ResidentDashboardController;
+use App\Http\Controllers\ServiceExperienceController;
+use App\Http\Controllers\GeneralIntakeSheetController;
 
 Route::get('/', function () {
     return Inertia::render('Auth/Login', [
@@ -50,6 +51,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/experience', [ServiceExperienceController::class, 'index'])->name('experience.index');
         Route::get('/experience/create', [ServiceExperienceController::class, 'create'])->name('experience.create');
         Route::post('/experience', [ServiceExperienceController::class, 'store'])->name('experience.store');
+
+        Route::get('/assistance', [GeneralIntakeSheetController::class, 'index'])->name('assistance.index');
+        Route::get('/assistance/create', [GeneralIntakeSheetController::class, 'create'])->name('assistance.create');
+        Route::post('/assistance', [GeneralIntakeSheetController::class, 'store'])->name('assistance.store');
 
 
 
