@@ -20,6 +20,13 @@ Route::get('/', function () {
     ]);
 });
 
+
+Route::get('/register', function () {
+    return Inertia::render('Auth/Register');
+})->name('register');
+
+
+
 Route::middleware(['auth', 'verified'])->group(function () {
     
     // Admin Routes
