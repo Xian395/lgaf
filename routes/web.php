@@ -3,18 +3,25 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
-use App\Http\Controllers\AboutController;
+
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\AssistanceController;
-use App\Http\Controllers\AdminDashboardController;
-use App\Http\Controllers\ManageFeedbackController;
 use App\Http\Controllers\StaffDashboardController;
-use App\Http\Controllers\ManageAssistanceController;
-use App\Http\Controllers\ResidentDashboardController;
-use App\Http\Controllers\ServiceExperienceController;
-use App\Http\Controllers\GeneralIntakeSheetController;
-use App\Http\Controllers\ManageServiceExperienceController;
+
+
+
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\ManageFeedbackController;
+use App\Http\Controllers\Admin\ManageAssistanceController;
+use App\Http\Controllers\Admin\ManageServiceExperienceController;
+
+
+use App\Http\Controllers\Resident\GeneralIntakeSheetController;
+use App\Http\Controllers\Resident\ServiceExperienceController;
+use App\Http\Controllers\Resident\ResidentDashboardController;
+use App\Http\Controllers\Resident\AssistanceController;
+use App\Http\Controllers\Resident\AboutController;
+use App\Http\Controllers\Resident\FeedbackController;
+
 
 Route::get('/', function () {
     return Inertia::render('Auth/Login', [
@@ -50,10 +57,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Resident Routes
     Route::prefix('resident')->middleware('role:resident')->name('resident.')->group(function () {
-        // Fixed: Remove the duplicate 'resident.' prefix
         Route::get('/dashboard', [ResidentDashboardController::class, 'index'])->name('dashboard');
         
-        // Feedback routes for residents
         Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.index');
         Route::get('/feedback/create', [FeedbackController::class, 'create'])->name('feedback.create');
         Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
