@@ -1,8 +1,6 @@
-<!-- manage service experience -->
 <template>
   <AdminLayout>
     <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8 px-4 sm:px-6 lg:px-8">
-      <!-- Header Section -->
       <div class="max-w-7xl mx-auto mb-8">
         <div class="bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -34,7 +32,6 @@
         </div>
       </div>
 
-      <!-- Stats Section -->
       <div class="max-w-7xl mx-auto mb-8">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
@@ -95,10 +92,8 @@
         </div>
       </div>
 
-      <!-- Service Quality Metrics -->
       <div class="max-w-7xl mx-auto mb-8">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- Staff Courtesy -->
           <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-200">
             <h3 class="text-lg font-semibold text-slate-800 mb-4">Staff Courtesy</h3>
             <div class="space-y-3">
@@ -121,7 +116,6 @@
             </div>
           </div>
 
-          <!-- Easy to Understand -->
           <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-200">
             <h3 class="text-lg font-semibold text-slate-800 mb-4">Easy to Understand</h3>
             <div class="space-y-3">
@@ -144,7 +138,6 @@
             </div>
           </div>
 
-          <!-- Rating Distribution -->
           <div class="bg-white rounded-2xl shadow-xl p-6 border border-slate-200">
             <h3 class="text-lg font-semibold text-slate-800 mb-4">Rating Distribution</h3>
             <div class="space-y-3">
@@ -168,7 +161,6 @@
         </div>
       </div>
 
-      <!-- Completion Time Analysis -->
       <div class="max-w-7xl mx-auto mb-8">
         <div class="bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
           <h3 class="text-xl font-semibold text-slate-800 mb-6">Service Completion Time</h3>
@@ -187,7 +179,6 @@
         </div>
       </div>
 
-      <!-- Experience List -->
       <div class="max-w-7xl mx-auto">
         <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
           <div class="px-8 py-6 border-b border-slate-200">
@@ -268,7 +259,6 @@
             </table>
           </div>
 
-          <!-- Pagination -->
           <div v-if="experiences.links.length > 3" class="px-6 py-4 border-t border-slate-200">
             <div class="flex items-center justify-between">
               <div class="text-sm text-slate-700">
@@ -296,7 +286,6 @@
         </div>
       </div>
 
-      <!-- View Experience Modal -->
       <div v-if="selectedExperience" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
           <div class="px-8 py-6 border-b border-slate-200">
@@ -358,7 +347,6 @@
         </div>
       </div>
 
-      <!-- Delete Confirmation Modal -->
       <div v-if="confirmDelete" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
         <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full">
           <div class="px-8 py-6 border-b border-slate-200">

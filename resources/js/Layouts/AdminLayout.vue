@@ -56,7 +56,7 @@
               ]"
               aria-current="page"
             >
-              Requests
+              ManageRequests
             </Link>
           
           </li>
@@ -71,7 +71,7 @@
               ]"
               aria-current="page"
             >
-              Feedback
+              ManageFeedback
             </Link>
            
           </li>
@@ -86,7 +86,7 @@
               ]"
               aria-current="page"
             >
-              Experience
+              ServicesExperience
             </Link>  
           
           </li>

@@ -94,12 +94,10 @@ class ManageServiceExperienceController extends Controller
         $callback = function() use ($experiences) {
             $file = fopen('php://output', 'w');
             
-            // Add CSV headers
             if ($experiences->isNotEmpty()) {
                 fputcsv($file, array_keys($experiences->first()));
             }
             
-            // Add data rows
             foreach ($experiences as $experience) {
                 fputcsv($file, $experience);
             }
