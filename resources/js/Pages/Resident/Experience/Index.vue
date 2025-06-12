@@ -356,7 +356,7 @@ const submit = () => {
         showThankYou.value = false;
         form.reset();
       }, 3000);
-      notifyMinimal("Service Experience submitted successfully!", "success");
+      notifyMinimal("Your responce has been submitted successfully!!", "success");
     },
     onError: () => {
       notifyMinimal(
