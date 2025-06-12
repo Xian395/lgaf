@@ -5,22 +5,23 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 
 use App\Http\Controllers\ProfileController;
+
+
 use App\Http\Controllers\StaffDashboardController;
 
+use App\Http\Controllers\Resident\AboutController;
+use App\Http\Controllers\Resident\FeedbackController;
+use App\Http\Controllers\Resident\MyRequestController;
+use App\Http\Controllers\Resident\AssistanceController;
+use App\Http\Controllers\Resident\ResidentDashboardController;
+use App\Http\Controllers\Resident\ServiceExperienceController;
+use App\Http\Controllers\Resident\GeneralIntakeSheetController;
 
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ManageFeedbackController;
 use App\Http\Controllers\Admin\ManageAssistanceController;
 use App\Http\Controllers\Admin\ManageServiceExperienceController;
-
-
-use App\Http\Controllers\Resident\GeneralIntakeSheetController;
-use App\Http\Controllers\Resident\ServiceExperienceController;
-use App\Http\Controllers\Resident\ResidentDashboardController;
-use App\Http\Controllers\Resident\AssistanceController;
-use App\Http\Controllers\Resident\AboutController;
-use App\Http\Controllers\Resident\FeedbackController;
 
 
 Route::get('/', function () {
@@ -75,7 +76,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/assistance/create', [GeneralIntakeSheetController::class, 'create'])->name('assistance.create');
         Route::post('/assistance', [GeneralIntakeSheetController::class, 'store'])->name('assistance.store');
 
-
+        Route::get('/myrequest', [MyRequestController::class, 'index'])->name('myrequest.index');
 
         Route::get('/about', [AboutController::class, 'index'])->name('about.index');
 

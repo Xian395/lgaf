@@ -600,6 +600,17 @@ onUnmounted(() => {
       <!-- User dropdown -->
       <div class="hidden md:flex items-center md:order-2 space-x-3 relative">
         <!-- Notifications Button -->
+          <Link 
+              :href="route('resident.myrequest.index')" 
+              :class="[
+                'block py-2 px-3 rounded md:border-0 md:p-0 transition-colors duration-200',
+                route().current('resident.myrequest.index') 
+                  ? 'text-white bg-blue-600 md:text-blue-600 md:bg-transparent' 
+                  : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600'
+              ]"
+            >
+              myRequest
+            </Link>
         <button class="relative p-2 text-gray-500 rounded-lg hover:bg-gray-100 transition-colors duration-200">
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
             <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
@@ -652,16 +663,7 @@ onUnmounted(() => {
                 Profile Settings
               </Link>
             </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors duration-200">
-                Preferences
-              </a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors duration-200">
-                Help & Support
-              </a>
-            </li>
+           
           </ul>
           
           <!-- Sign Out -->
@@ -747,6 +749,17 @@ onUnmounted(() => {
           >
             About
           </Link>
+           <Link 
+            :href="route('resident.myrequest.index')" 
+            :class="[
+              'block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200',
+              route().current('resident.myrequest.index') 
+                ? 'text-white bg-blue-600' 
+                : 'text-gray-900 hover:bg-gray-100'
+            ]"
+          >
+            myRequest
+          </Link>
         </div>
         
         <!-- Mobile User Section -->
@@ -774,14 +787,7 @@ onUnmounted(() => {
               Profile Settings
             </Link>
             
-            <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-100 transition-colors duration-200">
-              Preferences
-            </a>
-            
-            <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-100 transition-colors duration-200">
-              Help & Support
-            </a>
-            
+        
             <Link 
               :href="route('logout')" 
               method="post" 

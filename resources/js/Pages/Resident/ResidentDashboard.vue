@@ -1,19 +1,6 @@
 <template>
   <ResidentLayout>
-    <!-- <template #header>
-      <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 p-6 text-white relative overflow-hidden">
-        <div class="absolute inset-0 bg-black/10"></div>
-        <div class="relative z-10">
-          <h2 class="font-bold text-2xl text-white leading-tight flex items-center">
-            <svg class="w-8 h-8 mr-3" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-            </svg>
-            Resident Dashboard
-          </h2>
-          <p class="text-white/80 mt-2">Welcome back! Manage your services and provide feedback.</p>
-        </div>
-      </div>
-    </template> -->
+
 
     <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8 px-4 sm:px-6 lg:px-8">
       <!-- Floating particles background -->
