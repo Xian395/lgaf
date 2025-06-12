@@ -4,7 +4,7 @@
 
     <form @submit.prevent="submit">
       <div>
-        <InputLabel for="name" value="Name" />
+        <InputLabel for="name" value="Full Name" />
         <TextInput
           id="name"
           type="text"
@@ -28,19 +28,6 @@
           autocomplete="email"
         />
         <InputError class="mt-2" :message="form.errors.email" />
-      </div>
-
-      <div class="mt-4">
-        <InputLabel for="role" value="Role" />
-        <select
-          id="role"
-          v-model="form.role"
-          class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-          required
-        >
-          <option value="resident">Resident</option>
-        </select>
-        <InputError class="mt-2" :message="form.errors.role" />
       </div>
 
       <div class="mt-4">
