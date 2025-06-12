@@ -412,7 +412,7 @@ const submit = () => {
                 showThankYou.value = false;
                 form.reset();
             }, 3000);
-            notifyMinimal("Feedback submitted successfully!", "success");
+            notifyMinimal("Your responce has been submitted successfully!", "success");
         },
         onError: () => {
             notifyMinimal(
