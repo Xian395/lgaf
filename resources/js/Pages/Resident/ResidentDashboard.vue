@@ -1,6 +1,6 @@
 <template>
   <ResidentLayout>
-    <template #header>
+    <!-- <template #header>
       <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 p-6 text-white relative overflow-hidden">
         <div class="absolute inset-0 bg-black/10"></div>
         <div class="relative z-10">
@@ -13,7 +13,7 @@
           <p class="text-white/80 mt-2">Welcome back! Manage your services and provide feedback.</p>
         </div>
       </div>
-    </template>
+    </template> -->
 
     <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8 px-4 sm:px-6 lg:px-8">
       <!-- Floating particles background -->
