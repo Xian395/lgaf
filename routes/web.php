@@ -8,10 +8,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\AssistanceController;
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\ManageFeedbackController;
 use App\Http\Controllers\StaffDashboardController;
+use App\Http\Controllers\ManageAssistanceController;
 use App\Http\Controllers\ResidentDashboardController;
 use App\Http\Controllers\ServiceExperienceController;
 use App\Http\Controllers\GeneralIntakeSheetController;
+use App\Http\Controllers\ManageServiceExperienceController;
 
 Route::get('/', function () {
     return Inertia::render('Auth/Login', [
@@ -32,6 +35,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Admin Routes
     Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+        
+         Route::get('/feedback', [ManageFeedbackController::class, 'index'])->name('feedback.index');
+          Route::get('/assistance', [ManageAssistanceController::class, 'index'])->name('assistance.index');
+           Route::get('/service', [ManageServiceExperienceController::class, 'index'])->name('service.index');
         // Add more admin routes here as needed
     });
 
