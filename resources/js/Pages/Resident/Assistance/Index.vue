@@ -813,6 +813,7 @@ const sections = ref({
   financial: false,
   material: false,
   signatures: false,
+  statusL: false
 });
 
 const showThankYou = ref(false);
@@ -889,6 +890,7 @@ const form = useForm({
   material_others: "",
   client_signature: "",
   thumb_mark: "",
+  status: "PENDING"
 });
 
 const requiredFields = [

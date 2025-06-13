@@ -83,6 +83,7 @@ return new class extends Migration
             // Signatures
             $table->string('client_signature')->nullable(); // Store as text or file path if uploaded
             $table->string('thumb_mark')->nullable(); // Store as text or file path if uploaded
+            $table->enum('status', ['PENDING', 'IN_PROGRESS', 'VERIFIED', 'REJECTED'])->default('PENDING');
             $table->timestamps();
         });
     }
