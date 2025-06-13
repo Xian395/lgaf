@@ -82,6 +82,7 @@ class GeneralIntakeSheetController extends Controller
             'material_others' => 'nullable|string|max:255',
             'client_signature' => 'nullable|string|max:255',
             'thumb_mark' => 'nullable|string|max:255',
+            'status' => 'nullable|in:PENDING,IN_PROGRESS,VERIFIED,REJECTED',
         ]);
 
         GeneralIntakeSheet::create(array_merge($validated, ['user_id' => Auth::id()]));
