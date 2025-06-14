@@ -40,7 +40,7 @@
                 </div>
               </div>
               <h1 class="text-4xl font-bold text-center mb-4 tracking-tight">
-                Welcome
+                Feedback
               </h1>
               <p class="text-xl text-center text-white/90 leading-relaxed max-w-2xl mx-auto">
                 Your feedback helps us improve the public services in Tubod. Please answer the questions below.

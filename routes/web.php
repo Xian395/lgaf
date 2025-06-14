@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ManageReportController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
@@ -16,13 +17,13 @@ use App\Http\Controllers\Resident\AssistanceController;
 use App\Http\Controllers\Resident\ResidentDashboardController;
 use App\Http\Controllers\Resident\ServiceExperienceController;
 use App\Http\Controllers\Resident\GeneralIntakeSheetController;
+use App\Http\Controllers\Resident\ReportIssueController;
 
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\ManageFeedbackController;
 use App\Http\Controllers\Admin\ManageAssistanceController;
 use App\Http\Controllers\Admin\ManageServiceExperienceController;
-
 
 Route::get('/', function () {
     return Inertia::render('Auth/Login', [
@@ -47,6 +48,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
          Route::get('/feedback', [ManageFeedbackController::class, 'index'])->name('feedback.index');
           Route::get('/assistance', [ManageAssistanceController::class, 'index'])->name('assistance.index');
            Route::get('/service', [ManageServiceExperienceController::class, 'index'])->name('service.index');
+
+         Route::get('/report', [ManageReportController::class, 'index'])->name('report.index');
+        
         // Add more admin routes here as needed
     });
 
@@ -75,6 +79,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/assistance', [GeneralIntakeSheetController::class, 'index'])->name('assistance.index');
         Route::get('/assistance/create', [GeneralIntakeSheetController::class, 'create'])->name('assistance.create');
         Route::post('/assistance', [GeneralIntakeSheetController::class, 'store'])->name('assistance.store');
+
+
+        Route::get('/report', [ReportIssueController::class, 'index'])->name('report.index');
+         Route::post('/report', [ReportIssueController::class, 'store'])->name('report.store');
 
         Route::get('/myrequest', [MyRequestController::class, 'index'])->name('myrequest.index');
 
