@@ -56,39 +56,71 @@
               ]"
               aria-current="page"
             >
-              ManageRequests
+              manageRequests
             </Link>
-          
           </li>
           <li>
              <Link 
-              :href="route('admin.feedback.index')" 
+              :href="route('admin.report.index')" 
               :class="[
                 'block py-2 px-3 rounded md:border-0 md:p-0 transition-colors duration-200',
-                route().current('admin.feedback.index') 
+                route().current('admin.report.index') 
                   ? 'text-white bg-blue-600 md:text-blue-600 md:bg-transparent' 
                   : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600'
               ]"
               aria-current="page"
             >
-              ManageFeedback
+              manageReports
             </Link>
-           
           </li>
-          <li>
-             <Link 
-              :href="route('admin.service.index')" 
+          
+          <!-- Feedback Dropdown -->
+          <li class="relative">
+            <button 
+              @click="toggleFeedbackDropdown"
               :class="[
-                'block py-2 px-3 rounded md:border-0 md:p-0 transition-colors duration-200',
-                route().current('admin.service.index') 
+                'flex items-center py-2 px-3 rounded md:border-0 md:p-0 transition-colors duration-200',
+                (route().current('admin.feedback.index') || route().current('admin.service.index'))
                   ? 'text-white bg-blue-600 md:text-blue-600 md:bg-transparent' 
                   : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600'
               ]"
-              aria-current="page"
             >
-              ServicesExperience
-            </Link>  
-          
+              manageFeedback
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            
+            <!-- Feedback Dropdown Menu -->
+            <div 
+              v-show="showFeedbackDropdown"
+              class="absolute left-0 top-full mt-1 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50"
+            >
+              <div class="py-1">
+                <Link 
+                  :href="route('admin.feedback.index')"
+                  :class="[
+                    'block px-4 py-2 text-sm transition-colors duration-200',
+                    route().current('admin.feedback.index')
+                      ? 'text-blue-600 bg-blue-50'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  ]"
+                >
+                  Service Feedback
+                </Link>
+                <Link 
+                  :href="route('admin.service.index')"
+                  :class="[
+                    'block px-4 py-2 text-sm transition-colors duration-200',
+                    route().current('admin.service.index')
+                      ? 'text-blue-600 bg-blue-50'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  ]"
+                >
+                  Experience Feedback
+                </Link>
+              </div>
+            </div>
           </li>
         </ul>
       </div>
@@ -204,31 +236,74 @@
                 : 'text-gray-900 hover:bg-gray-100'
             ]"
           >
-            Requests
+            manageRequests
           </Link>
-         <Link 
-            :href="route('admin.feedback.index')" 
+           <Link 
+            :href="route('admin.report.index')" 
             :class="[
               'block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200',
-              route().current('admin.feedback.index') 
+              route().current('admin.report.index') 
                 ? 'text-white bg-blue-600' 
                 : 'text-gray-900 hover:bg-gray-100'
             ]"
           >
-            Feedback
-          </Link>
-         <Link 
-            :href="route('admin.service.index')" 
-            :class="[
-              'block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200',
-              route().current('admin.service.index') 
-                ? 'text-white bg-blue-600' 
-                : 'text-gray-900 hover:bg-gray-100'
-            ]"
-          >
-            Feedback
+            manageReports
           </Link>
           
+          <!-- Mobile Feedback Section -->
+          <div>
+            <button 
+              @click="toggleMobileFeedbackDropdown"
+              :class="[
+                'flex items-center justify-between w-full px-3 py-2 rounded-md text-base font-medium transition-colors duration-200',
+                (route().current('admin.feedback.index') || route().current('admin.service.index'))
+                  ? 'text-white bg-blue-600' 
+                  : 'text-gray-900 hover:bg-gray-100'
+              ]"
+            >
+              manageFeedback
+              <svg 
+                :class="[
+                  'w-4 h-4 transition-transform duration-200',
+                  showMobileFeedbackDropdown ? 'rotate-180' : ''
+                ]" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            
+            <!-- Mobile Feedback Dropdown -->
+            <div 
+              v-show="showMobileFeedbackDropdown"
+              class="ml-4 mt-1 space-y-1"
+            >
+              <Link 
+                :href="route('admin.feedback.index')"
+                :class="[
+                  'block px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200',
+                  route().current('admin.feedback.index')
+                    ? 'text-white bg-blue-600'
+                    : 'text-gray-700 hover:bg-gray-100'
+                ]"
+              >
+                Service Feedback
+              </Link>
+              <Link 
+                :href="route('admin.service.index')"
+                :class="[
+                  'block px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200',
+                  route().current('admin.service.index')
+                    ? 'text-white bg-blue-600'
+                    : 'text-gray-700 hover:bg-gray-100'
+                ]"
+              >
+                Experience Feedback
+              </Link>
+            </div>
+          </div>
         </div>
         
         <!-- Mobile User Section -->
@@ -287,19 +362,34 @@ import { Link } from '@inertiajs/vue3';
 
 const showMobileMenu = ref(false);
 const showUserDropdown = ref(false);
+const showFeedbackDropdown = ref(false);
+const showMobileFeedbackDropdown = ref(false);
 
 const toggleMobileMenu = () => {
   showMobileMenu.value = !showMobileMenu.value;
   if (showMobileMenu.value) {
     showUserDropdown.value = false;
+    showFeedbackDropdown.value = false;
   }
 };
 
 const toggleUserDropdown = () => {
   showUserDropdown.value = !showUserDropdown.value;
-  if (showMobileMenu.value) {
+  if (showUserDropdown.value) {
     showMobileMenu.value = false;
+    showFeedbackDropdown.value = false;
   }
+};
+
+const toggleFeedbackDropdown = () => {
+  showFeedbackDropdown.value = !showFeedbackDropdown.value;
+  if (showFeedbackDropdown.value) {
+    showUserDropdown.value = false;
+  }
+};
+
+const toggleMobileFeedbackDropdown = () => {
+  showMobileFeedbackDropdown.value = !showMobileFeedbackDropdown.value;
 };
 
 const getUserInitials = (name) => {
@@ -317,6 +407,9 @@ const handleClickOutside = (event) => {
   }
   if (!event.target.closest('[aria-controls="navbar-default"]') && !event.target.closest('#navbar-mobile')) {
     showMobileMenu.value = false;
+  }
+  if (!event.target.closest('.relative') || !event.target.closest('button')) {
+    showFeedbackDropdown.value = false;
   }
 };
 

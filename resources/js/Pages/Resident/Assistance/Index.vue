@@ -819,11 +819,12 @@ const sections = ref({
 const showThankYou = ref(false);
 
 const clientCategories = [
-  { key: 'is_child_in_need', label: 'Child in Need' },
-  { key: 'is_youth_in_need', label: 'Youth in Need' },
+  { key: 'is_child_in_need', label: 'Child in Need of Special Protection' },
+  { key: 'is_youth_in_need', label: 'Youth in Need of Special Protection' },
   { key: 'is_woman_in_difficult_circumstances', label: 'Woman in Difficult Circumstances' },
   { key: 'is_pwd', label: 'Person with Disability (PWD)' },
   { key: 'is_senior', label: 'Senior Citizen' },
+  { key: 'is_family_head' , label: 'Family Head and Other'}
 ];
 
 const recommendedServices = [
