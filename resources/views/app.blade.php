@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- <title inertia>{{ config('app.name', 'Laravel') }}</title> -->
-        <title>TUBOD-LGU | Assistance Web Portal</title>
+        <title>TUBOD LGU | Assistance Web Portal</title>
         <link rel="shortcut icon" href="{{ asset('/icon2.png') }}" />
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

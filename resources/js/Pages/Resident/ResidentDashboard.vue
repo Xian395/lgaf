@@ -11,20 +11,38 @@
       <div class="relative z-10 py-8 px-4 sm:px-6 lg:px-8">
         <div class="max-w-7xl mx-auto">
           
-          <!-- Hero Header -->
-          <div class="text-center mb-12">
-            <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full shadow-lg mb-6">
-              <svg class="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-              </svg>
-            </div>
-            <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent mb-4">
-              Tubod Services Portal
-            </h1>
-            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
-              Your gateway to municipal services and community feedback
-            </p>
-          </div>
+         <!-- Hero Header -->
+<div class="text-center mb-12 p-8">
+    <!-- Government Logos Row -->
+    <div class="flex items-center justify-center gap-12 mb-8">
+        <!-- Philippine National Logo -->
+        <div class="w-20 h-20 flex items-center justify-center overflow-hidden">
+            <img src="/logo.png" alt="Philippine National Logo" class="w-25 h-25 object-contain">
+        </div>
+
+        <!-- Provincial Government Logo -->
+        <div class="w-20 h-20 flex items-center justify-center overflow-hidden">
+            <img src="/DILG.png" alt="Provincial Government Logo" class="w-25 h-25 object-contain">
+        </div>
+
+        <!-- Municipal Government Logo -->
+        <div class="w-20 h-20 flex items-center justify-center overflow-hidden">
+            <img src="/SEAL.png" alt="Municipal Government Logo" class="w-25 h-25 object-contain">
+        </div>
+
+        <!-- Local Barangay Logo -->
+        <div class="w-20 h-20 flex items-center justify-center overflow-hidden">
+            <img src="/DSWD.png" alt="Local Barangay Logo" class="w-25 h-25 object-contain">
+        </div>
+    </div>
+
+    <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-cyan-600 bg-clip-text text-transparent mb-4">
+        Tubod Services Portal
+    </h1>
+    <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Your gateway to municipal services and community feedback
+    </p>
+</div>
 
           <!-- Stats Cards -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
