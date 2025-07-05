@@ -40,18 +40,18 @@ Route::get('/register', function () {
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    
+
     // Admin Routes
     Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
-        
-         Route::get('/feedback', [ManageFeedbackController::class, 'index'])->name('feedback.index');
-          Route::get('/assistance', [ManageAssistanceController::class, 'index'])->name('assistance.index');
-           Route::get('/service', [ManageServiceExperienceController::class, 'index'])->name('service.index');
 
-         Route::get('/report', [ManageReportController::class, 'index'])->name('report.index');
-        
-        // Add more admin routes here as needed
+        Route::get('/feedback', [ManageFeedbackController::class, 'index'])->name('feedback.index');
+        Route::get('/assistance', [ManageAssistanceController::class, 'index'])->name('assistance.index');
+        Route::get('/service', [ManageServiceExperienceController::class, 'index'])->name('service.index');
+
+        Route::get('/report', [ManageReportController::class, 'index'])->name('report.index');
+        Route::put('/report/{issue}/update-status', [ManageReportController::class, 'updateStatus'])->name('report.updateStatus');
+        Route::get('/report/export', [ManageReportController::class, 'export'])->name('report.export');
     });
 
     // Staff Routes
@@ -63,11 +63,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Resident Routes
     Route::prefix('resident')->middleware('role:resident')->name('resident.')->group(function () {
         Route::get('/dashboard', [ResidentDashboardController::class, 'index'])->name('dashboard');
-        
+
         Route::get('/feedback', [FeedbackController::class, 'index'])->name('feedback.index');
         Route::get('/feedback/create', [FeedbackController::class, 'create'])->name('feedback.create');
         Route::post('/feedback', [FeedbackController::class, 'store'])->name('feedback.store');
-        
+
         Route::get('/assistance', [AssistanceController::class, 'index'])->name('assistance.index');
         Route::get('/assistance/create', [AssistanceController::class, 'create'])->name('assistance.create');
         Route::post('/assistance', [AssistanceController::class, 'store'])->name('assistance.store');
@@ -82,14 +82,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 
         Route::get('/report', [ReportIssueController::class, 'index'])->name('report.index');
-         Route::post('/report', [ReportIssueController::class, 'store'])->name('report.store');
+        Route::post('/report', [ReportIssueController::class, 'store'])->name('report.store');
 
         Route::get('/myrequest', [MyRequestController::class, 'index'])->name('myrequest.index');
 
         Route::get('/about', [AboutController::class, 'index'])->name('about.index');
-
     });
-    
 });
 
 Route::middleware('auth')->group(function () {
@@ -98,4 +96,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
