@@ -3,7 +3,7 @@
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <!-- Logo -->
       <Link :href="route('admin.dashboard')" class="flex items-center space-x-3">
-        <img src="/logo.png" alt="LGU Connect Logo" class="h-10 w-10" />
+        <img src="/icon2.png" alt="LGU Connect Logo" class="h-10 w-10" />
         <div class="flex flex-col">
           <span class="text-xl font-bold text-blue-600">
             LGU Connect
@@ -42,7 +42,7 @@
               ]"
               aria-current="page"
             >
-              Dashboard
+              Home
             </Link>
           </li>
           <li>
@@ -225,7 +225,7 @@
                 : 'text-gray-900 hover:bg-gray-100'
             ]"
           >
-            Dashboard
+            Home
           </Link>
            <Link 
             :href="route('admin.assistance.index')" 

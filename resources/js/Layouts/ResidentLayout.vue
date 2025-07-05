@@ -3,7 +3,7 @@
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <!-- Logo -->
       <Link :href="route('resident.dashboard')" class="flex items-center space-x-3">
-        <img src="/logo.png" alt="LGU Connect Logo" class="h-10 w-10" />
+        <img src="/icon2.png" alt="LGU Connect Logo" class="h-10 w-10" />
         <div class="flex flex-col">
           <span class="text-xl font-bold text-blue-600">
             LGU Connect
@@ -42,7 +42,7 @@
               ]"
               aria-current="page"
             >
-              Dashboard
+              Home
             </Link>
           </li>
           
@@ -137,17 +137,17 @@
       <!-- User dropdown -->
       <div class="hidden md:flex items-center md:order-2 space-x-3 relative">
         <!-- My Requests Link -->
-        <Link 
-          :href="route('resident.myrequest.index')" 
-          :class="[
-            'block py-2 px-3 rounded md:border-0 md:p-0 transition-colors duration-200',
-            route().current('resident.myrequest.index') 
-              ? 'text-white bg-blue-600 md:text-blue-600 md:bg-transparent' 
-              : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600'
-          ]"
-        >
-          myRequests
-        </Link>
+<Link 
+  :href="route('resident.myrequest.index')" 
+  :class="[
+    'inline-flex items-center px-3 py-1 text-black font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105',
+    route().current('resident.myrequest.index') 
+      ? 'bg-gradient-to-r from-blue-200 to-purple-200 md:bg-transparent md:text-black md:shadow-none md:hover:shadow-none md:hover:scale-100' 
+      : 'bg-gradient-to-r from-blue-200 to-purple-200 md:bg-transparent md:text-black md:shadow-none md:hover:shadow-none md:hover:scale-100'
+  ]"
+>
+  myAction
+</Link>
         
         <!-- Notifications Button -->
         <button class="relative p-2 text-gray-500 rounded-lg hover:bg-gray-100 transition-colors duration-200">
@@ -237,7 +237,7 @@
                 : 'text-gray-900 hover:bg-gray-100'
             ]"
           >
-            Dashboard
+            Home
           </Link>
           
           <Link 
@@ -329,14 +329,14 @@
           
           <Link 
             :href="route('resident.myrequest.index')" 
-            :class="[
-              'block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200',
-              route().current('resident.myrequest.index') 
-                ? 'text-white bg-blue-600' 
-                : 'text-gray-900 hover:bg-gray-100'
-            ]"
-          >
-            myRequests
+  :class="[
+    'inline-flex items-center px-3 py-1 text-black font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105',
+    route().current('resident.myrequest.index') 
+      ? 'bg-gradient-to-r from-blue-200 to-purple-200 md:bg-transparent md:text-black md:shadow-none md:hover:shadow-none md:hover:scale-100' 
+      : 'bg-gradient-to-r from-blue-200 to-purple-200 md:bg-transparent md:text-black md:shadow-none md:hover:shadow-none md:hover:scale-100'
+  ]"
+>
+            myAction
           </Link>
         </div>
         
@@ -433,17 +433,14 @@ const getUserInitials = (name) => {
 };
 
 const handleClickOutside = (event) => {
-  // Close user dropdown
   if (!event.target.closest('#user-menu-button') && !event.target.closest('#user-dropdown')) {
     showUserDropdown.value = false;
   }
   
-  // Close feedback dropdown
   if (!event.target.closest('button[aria-expanded]') && !event.target.closest('.absolute')) {
     showFeedbackDropdown.value = false;
   }
   
-  // Close mobile menu
   if (!event.target.closest('[aria-controls="navbar-default"]') && !event.target.closest('#navbar-mobile')) {
     showMobileMenu.value = false;
   }
