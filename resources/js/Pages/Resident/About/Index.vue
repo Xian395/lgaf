@@ -12,7 +12,7 @@
 
       <div class="relative max-w-7xl mx-auto">
         <!-- Header Section -->
-        <div class="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl border border-white/20 overflow-hidden mb-8 transition-all duration-500 hover:shadow-3xl">
+        <div class="bg-white/80 backdrop-blur-sm shadow-2xl border border-white/20 overflow-hidden mb-8 transition-all duration-500 hover:shadow-3xl">
           <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-blue-600 p-8 lg:p-12 text-white relative overflow-hidden">
             <div class="absolute inset-0 bg-black/10"></div>
             <div class="relative z-10 text-center">
@@ -32,7 +32,7 @@
         <!-- Mission & Vision Cards -->
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           <!-- Mission Card -->
-          <div class="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl border border-white/20 overflow-hidden transition-all duration-500 hover:shadow-3xl group hover:scale-105">
+          <div class="bg-white/80 backdrop-blur-sm shadow-2xl border border-white/20 overflow-hidden transition-all duration-500 hover:shadow-3xl group hover:scale-105">
             <div class="bg-gradient-to-r from-emerald-500 to-teal-600 p-6 text-white">
               <div class="flex items-center justify-between">
                 <div>
@@ -75,7 +75,7 @@
           </div>
 
           <!-- Vision Card -->
-          <div class="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl border border-white/20 overflow-hidden transition-all duration-500 hover:shadow-3xl group hover:scale-105">
+          <div class="bg-white/80 backdrop-blur-sm shadow-2xl border border-white/20 overflow-hidden transition-all duration-500 hover:shadow-3xl group hover:scale-105">
             <div class="bg-gradient-to-r from-violet-500 to-purple-600 p-6 text-white">
               <div class="flex items-center justify-between">
                 <div>
@@ -119,7 +119,7 @@
         </div>
 
         <!-- Core Values Section -->
-        <div class="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl border border-white/20 overflow-hidden mb-8 transition-all duration-500 hover:shadow-3xl">
+        <div class="bg-white/80 backdrop-blur-sm shadow-2xl border border-white/20 overflow-hidden mb-8 transition-all duration-500 hover:shadow-3xl">
           <div class="bg-gradient-to-r from-amber-500 to-orange-600 p-6 text-white relative overflow-hidden">
             <div class="absolute inset-0 bg-black/10"></div>
             <div class="relative z-10">
@@ -178,7 +178,7 @@
         </div>
 
         <!-- History & Background Section -->
-        <div class="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl border border-white/20 overflow-hidden mb-8 transition-all duration-500 hover:shadow-3xl">
+        <div class="bg-white/80 backdrop-blur-sm shadow-2xl border border-white/20 overflow-hidden mb-8 transition-all duration-500 hover:shadow-3xl">
           <div class="p-8 lg:p-12">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
               <div>
@@ -233,7 +233,7 @@
         </div>
 
         <!-- Contact Information -->
-        <div class="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl border border-white/20 overflow-hidden transition-all duration-500 hover:shadow-3xl">
+        <div class="bg-white/80 backdrop-blur-sm shadow-2xl border border-white/20 overflow-hidden transition-all duration-500 hover:shadow-3xl">
           <div class="bg-gradient-to-r from-teal-500 to-cyan-600 p-6 text-white relative overflow-hidden">
             <div class="absolute inset-0 bg-black/10"></div>
             <div class="relative z-10">
@@ -283,7 +283,7 @@
 
         <!-- Footer Section -->
         <div class="mt-8 text-center">
-          <div class="bg-white/60 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
+          <div class="bg-white/60 backdrop-blur-sm p-6 border border-white/20">
             <p class="text-gray-600 mb-4">
               Thank you for being part of the Tubod community. Together, we build a better future.
             </p>
