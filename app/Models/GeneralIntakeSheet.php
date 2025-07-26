@@ -13,6 +13,7 @@ class GeneralIntakeSheet extends Model
 
     protected $fillable = [
         'user_id',
+        'phone',
         'client_name',
         'client_sex',
         'client_dob',

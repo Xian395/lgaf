@@ -27,7 +27,7 @@
         </div>
 
         <!-- Main form card -->
-        <div class="bg-white/80 backdrop-blur-sm shadow-2xl rounded-3xl border border-white/20 overflow-hidden transition-all duration-500 hover:shadow-3xl">
+        <div class="bg-white/80 backdrop-blur-sm shadow-2xl border border-white/20 overflow-hidden transition-all duration-500 hover:shadow-3xl">
           <!-- Header section with gradient -->
           <div class="bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 p-8 text-white relative overflow-hidden">
             <div class="absolute inset-0 bg-black/10"></div>

@@ -31,6 +31,40 @@
       </div>
 
       <div class="mt-4">
+        <InputLabel for="phone" value="Phone Number" />
+        <TextInput
+          id="phone"
+          type="tel"
+          class="mt-1 block w-full"
+          v-model="form.phone"
+          required
+          autocomplete="tel"
+        />
+        <InputError class="mt-2" :message="form.errors.phone" />
+      </div>
+
+      <div class="mt-4">
+        <InputLabel for="barangay" value="Barangay" />
+        <select
+          id="barangay"
+          v-model="form.barangay"
+          required
+          class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-indigo-500 focus:ring-0 transition-all duration-300 bg-white/50 backdrop-blur-sm text-gray-800"
+        >
+          <option value="">Select Barangay</option>
+          <option value="cawilan">Cawilan</option>
+          <option value="del_rosario">Del Rosario</option>
+          <option value="capayahan">Capayahan</option>
+          <option value="marga">Marga</option>
+          <option value="san_isidro">San Isidro</option>
+          <option value="motorpol">Motorpol</option>
+          <option value="san_pablo">San Pablo</option>
+          <option value="timamana">Timamana</option>
+        </select>
+        <InputError class="mt-2" :message="form.errors.barangay" />
+      </div>
+
+      <div class="mt-4">
         <InputLabel for="password" value="Password" />
         <TextInput
           id="password"
@@ -83,6 +117,8 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 const form = useForm({
   name: '',
   email: '',
+  phone: '',
+  barangay: '',
   password: '',
   password_confirmation: '',
   role: 'resident',
