@@ -10,6 +10,8 @@ return new class extends Migration
     {
         Schema::create('general_intake_sheets', function (Blueprint $table) {
             $table->id();
+
+            $table->string('phone', 20)->nullable();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             // Client Information
             $table->string('client_name');

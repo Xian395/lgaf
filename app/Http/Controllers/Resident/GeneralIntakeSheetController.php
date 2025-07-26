@@ -85,7 +85,13 @@ class GeneralIntakeSheetController extends Controller
             'status' => 'nullable|in:PENDING,IN_PROGRESS,VERIFIED,REJECTED',
         ]);
 
-        GeneralIntakeSheet::create(array_merge($validated, ['user_id' => Auth::id()]));
+          $user = Auth::user();
+
+        GeneralIntakeSheet::create(array_merge($validated, 
+        [
+            'user_id' => Auth::id(),
+            'phone' => $user->phone,
+     ]));
 
         return redirect()->route('resident.dashboard')->with('success', 'Assistance request submitted successfully.');
     }

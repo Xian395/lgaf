@@ -14,7 +14,7 @@
          <!-- Hero Header -->
 <div class="text-center mb-12 p-8">
     <!-- Government Logos Row -->
-    <div class="flex items-center justify-center gap-12 mb-8">
+    <div class="flex items-center justify-center gap-20 mb-8">
         <!-- Philippine National Logo -->
         <div class="w-20 h-20 flex items-center justify-center overflow-hidden">
             <img src="/logo.png" alt="Philippine National Logo" class="w-25 h-25 object-contain">
