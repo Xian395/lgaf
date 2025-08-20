@@ -41,7 +41,6 @@ class ManageAssistanceController extends Controller
 
             $assistanceRequest = GeneralIntakeSheet::findOrFail($id);
             
-            // Update the fields
             $assistanceRequest->status = $validated['status'];
             if (isset($validated['social_worker_assistance'])) {
                 $assistanceRequest->social_worker_assistance = $validated['social_worker_assistance'];
@@ -49,7 +48,6 @@ class ManageAssistanceController extends Controller
             
             $assistanceRequest->save();
 
-            // Return JSON response for AJAX requests
             if ($request->expectsJson()) {
                 return response()->json([
                     'success' => true,

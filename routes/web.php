@@ -46,6 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
 
         Route::get('/feedback', [ManageFeedbackController::class, 'index'])->name('feedback.index');
+        Route::delete('/feedback/{feedback}', [ManageFeedbackController::class, 'destroy'])->name('feedback.destroy');
 
     Route::get('/assistance', [ManageAssistanceController::class, 'index'])->name('assistance.index');
     Route::get('/assistance/{id}', [ManageAssistanceController::class, 'show'])->name('assistance.show');
@@ -56,6 +57,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
          Route::get('/assistance/{id}/download', [ManageAssistanceController::class, 'downloadPdf'])->name('assistance.download');
 
         Route::get('/service', [ManageServiceExperienceController::class, 'index'])->name('service.index');
+        Route::delete('/service/{experience}', [ManageServiceExperienceController::class, 'destroy'])->name('service.destroy');
 
         Route::get('/report', [ManageReportController::class, 'index'])->name('report.index');
         Route::put('/report/{issue}/update-status', [ManageReportController::class, 'updateStatus'])->name('report.updateStatus');
@@ -65,7 +67,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Staff Routes
     Route::prefix('staff')->middleware('role:staff')->name('staff.')->group(function () {
         Route::get('/dashboard', [StaffDashboardController::class, 'index'])->name('dashboard');
-        // Add more staff routes here as needed
     });
 
     // Resident Routes

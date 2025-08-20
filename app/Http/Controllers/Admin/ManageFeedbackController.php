@@ -15,7 +15,7 @@ class ManageFeedbackController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return Inertia::render('Admin/ManageFeedback/Index', [
+        return Inertia::render('Admin/ServiceFeedback/Index', [
             'feedbacks' => $feedbacks,
             'stats' => [
                 'total_feedbacks' => Feedback::count(),
@@ -41,13 +41,13 @@ class ManageFeedbackController extends Controller
         ]);
     }
 
-    public function destroy(Feedback $feedback)
-    {
-        $feedback->delete();
+public function destroy(Feedback $feedback)
+{
+    $feedback->delete();
 
-        return redirect()->route('admin.manage-feedback.index')
-            ->with('success', 'Feedback deleted successfully.');
-    }
+    return redirect()->route('admin.feedback.index')
+        ->with('success', 'Feedback deleted successfully.');
+}
 
     public function export()
     {
