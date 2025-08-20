@@ -15,7 +15,7 @@ class ManageServiceExperienceController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(10);
 
-        return Inertia::render('Admin/ServiceFeedback/Index', [
+        return Inertia::render('Admin/ServiceExperienceFeedback/Index', [
             'experiences' => $experiences,
             'stats' => [
                 'total_responses' => ServiceExperience::count(),
@@ -59,13 +59,13 @@ class ManageServiceExperienceController extends Controller
         ]);
     }
 
-    public function destroy(ServiceExperience $experience)
-    {
-        $experience->delete();
+public function destroy(ServiceExperience $experience)
+{
+    $experience->delete();
 
-        return redirect()->route('admin.manage-service-experience.index')
-            ->with('success', 'Service experience feedback deleted successfully.');
-    }
+    return redirect()->route('admin.service.index')
+        ->with('success', 'Service experience feedback deleted successfully.');
+}
 
     public function export()
     {
