@@ -21,7 +21,7 @@
                         </div>
                         <div class="hidden sm:block border-l border-gray-300 pl-4 ml-4">
                             <h1 class="text-lg font-semibold text-gray-900">Municipality of Tubod</h1>
-                            <p class="text-sm text-gray-600">Lanao del Norte, Philippines</p>
+                            <p class="text-sm text-gray-600">Surigao del Norte, Philippines</p>
                         </div>
                     </div>
                     
