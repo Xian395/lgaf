@@ -25,8 +25,3 @@ npm install
 - **Email:** resident@example.com
 - **Password:** password
 - **Role:** resident
-
-### Staff User
-- **Email:** staff@example.com
-- **Password:** password
-- **Role:** staff
