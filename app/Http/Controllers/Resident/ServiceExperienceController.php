@@ -13,7 +13,7 @@ class ServiceExperienceController extends Controller
 {
     public function index()
     {
-        return Inertia::render('Resident/Experience/Index');
+        return Inertia::render('Resident/ServiceExperience/Index');
     }
 
     public function store(Request $request)
