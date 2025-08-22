@@ -474,6 +474,41 @@
                     </div>
                 </div>
 
+<div
+    v-if="confirmDelete"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+>
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full">
+        <div class="px-8 py-6 border-b border-slate-200">
+            <h3 class="text-lg font-semibold text-slate-800">
+                Confirm Delete
+            </h3>
+        </div>
+
+        <div class="p-8">
+            <p class="text-slate-600 mb-6">
+                Are you sure you want to delete this service experience feedback? This action cannot be undone.
+            </p>
+
+            <div class="flex justify-end space-x-3">
+                <button
+                    @click="confirmDelete = null"
+                    class="px-4 py-2 text-slate-600 hover:text-slate-800 font-medium transition-colors duration-200"
+                >
+                    Cancel
+                </button>
+                <button
+                    @click="confirmDeleteFeedback"
+                    class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-200"
+                >
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
                 <!-- View Feedback Modal -->
                 <div
                     v-if="selectedFeedback"
@@ -628,6 +663,9 @@ import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { ref } from "vue";
 import { router } from "@inertiajs/vue3";
 import ActionButton from "@/Components/ActionButton.vue";
+import { notifyMinimal, getLogoBase64 } from "@/globalFunctions.js";
+import { jsPDF } from "jspdf";
+import { autoTable } from "jspdf-autotable";
 
 const props = defineProps({
     feedbacks: Object,
@@ -647,6 +685,233 @@ const getInitials = (name) => {
 const capitalizeFirst = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
 };
+
+
+const exportToPDF = async () => {
+    const doc = new jsPDF();
+
+    const logoBase64 = await getLogoBase64();
+
+    const pageWidth = doc.internal.pageSize.width;
+    const pageHeight = doc.internal.pageSize.height;
+    const leftMargin = 15;
+    const rightMargin = 15;
+    const usableWidth = pageWidth - leftMargin - rightMargin;
+    let yPosition = 8; // Reduced top margin
+
+    if (logoBase64) {
+        const logoWidth = 15; // Smaller logo
+        const logoHeight = 15;
+        const logoX = (pageWidth - logoWidth) / 2;
+
+        doc.addImage(
+            logoBase64,
+            "PNG",
+            logoX,
+            yPosition,
+            logoWidth,
+            logoHeight
+        );
+        yPosition += logoHeight + 5; // Reduced space between logo and subtitle
+    }
+
+    // Add subtitle lines
+    doc.setFontSize(12);
+    doc.setFont(undefined, "normal");
+    
+    const subtitle1 = "Municipality of Tubod";
+    const subtitle1Width = doc.getTextWidth(subtitle1);
+    const subtitle1X = (pageWidth - subtitle1Width) / 2;
+    doc.text(subtitle1, subtitle1X, yPosition);
+    yPosition += 5;
+    
+    const subtitle2 = "Surigao del Norte";
+    const subtitle2Width = doc.getTextWidth(subtitle2);
+    const subtitle2X = (pageWidth - subtitle2Width) / 2;
+    doc.text(subtitle2, subtitle2X, yPosition);
+    yPosition += 8; // Space before main title
+
+    doc.setFontSize(16);
+    doc.setFont(undefined, "bold");
+    const title = "Service Feedback Report";
+    const titleWidth = doc.getTextWidth(title);
+    const titleX = (pageWidth - titleWidth) / 2;
+    doc.text(title, titleX, yPosition);
+
+    yPosition += 10; // Reduced space after title
+
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(10);
+    const totalFeedbackText = `Total Feedback: ${props.stats.total_feedbacks}`;
+    const avgRatingText = `Average Rating: ${props.stats.average_rating}/5`;
+    const recentText = `This Week: ${props.stats.recent_feedbacks}`;
+
+    // Position statistics on the same line similar to the reports layout
+    doc.text(totalFeedbackText, leftMargin, yPosition);
+    
+    const avgRatingWidth = doc.getTextWidth(avgRatingText);
+    const recentTextWidth = doc.getTextWidth(recentText);
+    
+    // Center the average rating
+    doc.text(avgRatingText, (pageWidth - avgRatingWidth) / 2, yPosition);
+    
+    // Position recent text on the right with proper margin
+    doc.text(recentText, pageWidth - recentTextWidth - rightMargin, yPosition);
+
+    yPosition += 8; // Reduced space before table
+
+    const tableData = props.feedbacks.data.map((feedback) => [
+        feedback.full_name || "",
+        `${feedback.age} years, ${capitalizeFirst(feedback.gender)}`,
+        feedback.barangay || "",
+        `${feedback.rating}/5`,
+        feedback.service_used ? feedback.service_used.join(", ") : "",
+        feedback.suggestions || "No suggestions",
+        formatDate(feedback.created_at),
+    ]);
+
+    autoTable(doc, {
+        head: [
+            [
+                "Name",
+                "Demographics",
+                "Barangay",
+                "Rating",
+                "Services Used",
+                "Suggestions",
+                "Date Submitted",
+            ],
+        ],
+        body: tableData,
+        startY: yPosition,
+        margin: { left: leftMargin, right: rightMargin }, // Proper margins
+        styles: {
+            fontSize: 8,
+            cellPadding: 2, // Reduced cell padding
+        },
+        headStyles: {
+            // fillColor: [59, 130, 246],
+            textColor: 255,
+            fontStyle: "bold",
+        },
+        // Adjusted column widths to fit within margins
+        columnStyles: {
+            0: { cellWidth: 25 }, // Name
+            1: { cellWidth: 22 }, // Demographics
+            2: { cellWidth: 20 }, // Barangay
+            3: { cellWidth: 15 }, // Rating
+            4: { cellWidth: 35 }, // Services Used
+            5: { cellWidth: 40 }, // Suggestions
+            6: { cellWidth: 25 }, // Date Submitted
+        },
+        didParseCell: function (data) {
+            // Color code ratings
+            if (data.column.index === 3) { // Rating column
+                const ratingText = data.cell.text[0];
+                const rating = parseInt(ratingText.split('/')[0]); // Extract rating from "X/5" format
+                if (rating >= 5) {
+                    data.cell.styles.textColor = [34, 197, 94]; // Green for 5 stars
+                } else if (rating >= 4) {
+                    data.cell.styles.textColor = [59, 130, 246]; // Blue for 4 stars
+                } else if (rating >= 3) {
+                    data.cell.styles.textColor = [245, 158, 11]; // Yellow for 3 stars
+                } else if (rating >= 2) {
+                    data.cell.styles.textColor = [249, 115, 22]; // Orange for 2 stars
+                } else if (rating >= 1) {
+                    data.cell.styles.textColor = [239, 68, 68]; // Red for 1 star
+                }
+            }
+        },
+        // Ensure table respects margins
+        tableWidth: 'auto',
+        theme: 'grid'
+    });
+
+    const finalY = doc.lastAutoTable.finalY || 50;
+    
+    // Generated timestamp with proper margin
+    doc.setFontSize(9);
+    doc.setFont(undefined, "normal");
+    const generatedText = `Generated on: ${new Date().toLocaleString()}`;
+    doc.text(
+        generatedText,
+        pageWidth - doc.getTextWidth(generatedText) - rightMargin,
+        finalY + 10 // Reduced spacing
+    );
+
+    // Add feedback summary with proper margins
+    yPosition = finalY + 18; // Reduced spacing
+    doc.setFontSize(10);
+    doc.setFont(undefined, "bold");
+    doc.text("Feedback Summary:", leftMargin, yPosition);
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(9);
+    yPosition += 6; // Reduced spacing
+
+    // Rating Distribution
+    doc.setFont(undefined, "bold");
+    doc.text("Rating Distribution:", leftMargin, yPosition);
+    doc.setFont(undefined, "normal");
+    yPosition += 4;
+
+    Object.entries(props.stats.rating_distribution).forEach(([rating, count]) => {
+        const percentage = getRatingPercentage(count);
+        doc.text(`• ${rating} Star: ${count} (${percentage}%)`, leftMargin + 5, yPosition);
+        yPosition += 4; // Reduced spacing
+    });
+
+    yPosition += 4;
+
+    // Most Used Services (if available)
+    if (props.stats.most_used_services) {
+        doc.setFont(undefined, "bold");
+        doc.text("Most Used Services:", leftMargin, yPosition);
+        doc.setFont(undefined, "normal");
+        yPosition += 4;
+
+        Object.entries(props.stats.most_used_services).forEach(([service, count]) => {
+            doc.text(`• ${service}: ${count} times`, leftMargin + 5, yPosition);
+            yPosition += 4; // Reduced spacing
+        });
+    }
+
+    // Page numbers with proper margins
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.text(
+            `Page ${i} of ${pageCount}`,
+            pageWidth - 35,
+            pageHeight - 10
+        );
+    }
+
+    const pdfBlob = doc.output("blob");
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    window.open(pdfUrl, "_blank");
+
+    notifyMinimal('Service Feedback Report PDF opened in new tab!', 'success');
+};
+
+const isExporting = ref(false);
+const exportFeedback = async () => {
+    isExporting.value = true;
+
+    try {
+        await exportToPDF();
+    } catch (error) {
+        console.error("Export error:", error);
+        notifyMinimal("Failed to export reports. Please try again.", "error");
+    } finally {
+        setTimeout(() => {
+            isExporting.value = false;
+        }, 1000);
+    }
+};
+
+
 
 const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -668,14 +933,26 @@ const viewFeedback = (feedback) => {
     selectedFeedback.value = feedback;
 };
 
+
+const confirmDelete = ref(null);
 const deleteFeedback = (feedback) => {
-    if (confirm("Are you sure you want to delete this feedback?")) {
-        router.delete(route("admin.feedback.destroy", feedback.id));
-    }
+    confirmDelete.value = feedback;
 };
 
-const exportFeedback = () => {
-    window.location.href = route("admin.feedback.export");
+const confirmDeleteFeedback = () => {
+    const feedback = confirmDelete.value;
+    
+    router.delete(route("admin.feedback.destroy", feedback.id), {
+        onSuccess: () => {
+            notifyMinimal("Feedback deleted successfully", "success");
+        },
+        onError: () => {
+            notifyMinimal("Failed to delete feedback", "error");
+        },
+        onFinish: () => {
+            confirmDelete.value = null;
+        },
+    });
 };
 
 const changePage = (url) => {

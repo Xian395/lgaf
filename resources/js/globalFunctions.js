@@ -254,7 +254,7 @@ const imageToBase64 = (imagePath) => {
 // Function specifically for your logo
 const getLogoBase64 = async () => {
     try {
-        const base64Logo = await imageToBase64('/logo1.png');
+        const base64Logo = await imageToBase64('/logo.png');
         return base64Logo;
     } catch (error) {
         console.error('Error converting logo to base64:', error);

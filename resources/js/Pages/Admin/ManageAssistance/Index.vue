@@ -455,6 +455,40 @@
             </div>
         </div>
 
+        <div
+    v-if="confirmDelete"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+>
+    <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full">
+        <div class="px-8 py-6 border-b border-slate-200">
+            <h3 class="text-lg font-semibold text-slate-800">
+                Confirm Delete
+            </h3>
+        </div>
+
+        <div class="p-8">
+            <p class="text-slate-600 mb-6">
+                Are you sure you want to delete this assistance request? This action cannot be undone.
+            </p>
+
+            <div class="flex justify-end space-x-3">
+                <button
+                    @click="confirmDelete = null"
+                    class="px-4 py-2 text-slate-600 hover:text-slate-800 font-medium transition-colors duration-200"
+                >
+                    Cancel
+                </button>
+                <button
+                    @click="confirmDeleteRequest"
+                    class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-200"
+                >
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
         <!-- View Modal -->
 <div
   v-if="showViewModal"
@@ -918,25 +952,35 @@ const updateStatus = (request) => {
     );
 };
 
+
+const confirmDelete = ref(null);
+
 const deleteRequest = (request) => {
-    if (confirm("Are you sure you want to delete this assistance request?")) {
-        router.delete(`/admin/assistance/${request.id}`, {
-            onSuccess: () => {
-                notifyMinimal(
-                    "Assistance request deleted successfully!",
-                    "success"
-                );
-            },
-            onError: () => {
-                notifyMinimal(
-                    "Failed to delete assistance request. Please try again.",
-                    "error"
-                );
-            },
-            preserveState: true,
-            preserveScroll: true,
-        });
-    }
+    confirmDelete.value = request;
+};
+
+const confirmDeleteRequest = () => {
+    const request = confirmDelete.value;
+    
+    router.delete(`/admin/assistance/${request.id}`, {
+        onSuccess: () => {
+            notifyMinimal(
+                "Assistance request deleted successfully!",
+                "success"
+            );
+        },
+        onError: () => {
+            notifyMinimal(
+                "Failed to delete assistance request. Please try again.",
+                "error"
+            );
+        },
+        onFinish: () => {
+            confirmDelete.value = null;
+        },
+        preserveState: true,
+        preserveScroll: true,
+    });
 };
 
 const exportData = () => {
