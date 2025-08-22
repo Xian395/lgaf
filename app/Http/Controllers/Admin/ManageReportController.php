@@ -90,16 +90,34 @@ class ManageReportController extends Controller
         }
     }
 
-    public function export()
-    {
-        try {
-            return Excel::download(new IssuesExport, 'issues.xlsx');
-        } catch (\Exception $e) {
-            Log::error('Error exporting issues', [
-                'error' => $e->getMessage()
-            ]);
-            
-            return back()->with('error', 'Error exporting data. Please try again.');
+    public function destroy(Issue $report)
+{
+    try {
+        Log::info('Delete request received', [
+            'issue_id' => $report->id,
+            'user_name' => $report->user->name ?? 'Unknown',
+        ]);
+
+        if ($report->file_path && Storage::disk('public')->exists($report->file_path)) {
+            Storage::disk('public')->delete($report->file_path);
+            Log::info('Associated file deleted', ['file_path' => $report->file_path]);
         }
+
+        $report->delete();
+
+        Log::info('Issue deleted successfully', ['issue_id' => $report->id]);
+
+        return redirect()->back()->with('success', 'Report deleted successfully.');
+
+    } catch (\Exception $e) {
+        Log::error('Error deleting issue', [
+            'issue_id' => $report->id,
+            'error' => $e->getMessage(),
+            'trace' => $e->getTraceAsString()
+        ]);
+
+        return redirect()->back()->with('error', 'An error occurred while deleting the report.');
     }
+}
+
 }

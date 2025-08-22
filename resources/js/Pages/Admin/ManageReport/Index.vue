@@ -438,13 +438,22 @@
                                             <ActionButton
                                                 types="download"
                                                 size="md"
-                                                @click="quickUpdateStatus(issue)"
+                                                @click="
+                                                    quickUpdateStatus(issue)
+                                                "
                                             >
-                                               {{
+                                                {{
                                                     updatingStatus[issue.id]
                                                         ? "Updating..."
                                                         : "Quick Update"
                                                 }}
+                                            </ActionButton>
+                                            <ActionButton
+                                                types="delete"
+                                                size="md"
+                                                @click="deleteReport(issue)"
+                                            >
+                                                Delete
                                             </ActionButton>
                                         </div>
                                     </td>
@@ -486,7 +495,7 @@
             </div>
 
             <!-- View Report Modal -->
-           <!-- View Report Modal -->
+            <!-- View Report Modal -->
             <div
                 v-if="selectedReport"
                 class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
@@ -495,13 +504,19 @@
                     class="bg-white shadow-2xl max-w-4xl w-full max-h-[95vh] overflow-y-auto border border-gray-300"
                 >
                     <!-- Header -->
-                    <div class="bg-blue-900 text-white p-6 border-b-4 border-yellow-400">
+                    <div
+                        class="bg-blue-900 text-white p-6 border-b-4 border-yellow-400"
+                    >
                         <div class="flex items-center justify-between">
                             <div>
-                                <h3 class="text-2xl font-bold uppercase tracking-wide">
+                                <h3
+                                    class="text-2xl font-bold uppercase tracking-wide"
+                                >
                                     Incident Report Details
                                 </h3>
-                                <p class="text-blue-100 text-sm mt-1">Official Report Documentation</p>
+                                <p class="text-blue-100 text-sm mt-1">
+                                    Official Report Documentation
+                                </p>
                             </div>
                             <button
                                 @click="selectedReport = null"
@@ -528,48 +543,76 @@
                         <!-- Report Information Grid -->
                         <section class="bg-white border-2 border-blue-200 p-6">
                             <div class="border-l-4 border-blue-600 pl-4 mb-6">
-                                <h4 class="text-xl font-bold text-blue-900 uppercase">
+                                <h4
+                                    class="text-xl font-bold text-blue-900 uppercase"
+                                >
                                     Report Information
                                 </h4>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div class="border-b border-gray-200 pb-3">
-                                    <label class="block text-sm font-bold text-gray-800 uppercase tracking-wide mb-2">
+                                    <label
+                                        class="block text-sm font-bold text-gray-800 uppercase tracking-wide mb-2"
+                                    >
                                         Reporter Name
                                     </label>
-                                    <p class="text-gray-900 font-medium text-lg">
+                                    <p
+                                        class="text-gray-900 font-medium text-lg"
+                                    >
                                         {{ selectedReport.user_name }}
                                     </p>
                                 </div>
                                 <div class="border-b border-gray-200 pb-3">
-                                    <label class="block text-sm font-bold text-gray-800 uppercase tracking-wide mb-2">
+                                    <label
+                                        class="block text-sm font-bold text-gray-800 uppercase tracking-wide mb-2"
+                                    >
                                         Report ID
                                     </label>
-                                    <p class="text-gray-900 font-medium text-lg">
+                                    <p
+                                        class="text-gray-900 font-medium text-lg"
+                                    >
                                         #{{ selectedReport.id }}
                                     </p>
                                 </div>
                                 <div class="border-b border-gray-200 pb-3">
-                                    <label class="block text-sm font-bold text-gray-800 uppercase tracking-wide mb-2">
+                                    <label
+                                        class="block text-sm font-bold text-gray-800 uppercase tracking-wide mb-2"
+                                    >
                                         Report Type
                                     </label>
-                                    <div class="flex items-center p-3 bg-orange-100 border-l-4 border-orange-600">
-                                        <span class="font-semibold text-orange-900 uppercase text-sm">
-                                            {{ capitalizeFirst(selectedReport.type) }}
+                                    <div
+                                        class="flex items-center p-3 bg-orange-100 border-l-4 border-orange-600"
+                                    >
+                                        <span
+                                            class="font-semibold text-orange-900 uppercase text-sm"
+                                        >
+                                            {{
+                                                capitalizeFirst(
+                                                    selectedReport.type
+                                                )
+                                            }}
                                         </span>
                                     </div>
                                 </div>
                                 <div class="border-b border-gray-200 pb-3">
-                                    <label class="block text-sm font-bold text-gray-800 uppercase tracking-wide mb-2">
+                                    <label
+                                        class="block text-sm font-bold text-gray-800 uppercase tracking-wide mb-2"
+                                    >
                                         Current Status
                                     </label>
                                     <span
                                         :class="[
                                             'inline-flex items-center px-4 py-2 text-sm font-bold rounded uppercase tracking-wide',
-                                            getStatusBadgeClass(selectedReport.status),
+                                            getStatusBadgeClass(
+                                                selectedReport.status
+                                            ),
                                         ]"
                                     >
-                                        {{ capitalizeFirst(selectedReport.status) }}
+                                        {{
+                                            capitalizeFirst(
+                                                selectedReport.status
+                                            )
+                                        }}
                                     </span>
                                 </div>
                             </div>
@@ -578,16 +621,30 @@
                         <!-- Location Information -->
                         <section class="bg-white border-2 border-green-200 p-6">
                             <div class="border-l-4 border-green-600 pl-4 mb-6">
-                                <h4 class="text-xl font-bold text-green-900 uppercase">
+                                <h4
+                                    class="text-xl font-bold text-green-900 uppercase"
+                                >
                                     Incident Location
                                 </h4>
                             </div>
-                            <div class="bg-green-50 p-4 border border-green-200">
+                            <div
+                                class="bg-green-50 p-4 border border-green-200"
+                            >
                                 <div class="flex items-start">
-                                    <svg class="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+                                    <svg
+                                        class="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                    >
+                                        <path
+                                            fill-rule="evenodd"
+                                            d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                            clip-rule="evenodd"
+                                        ></path>
                                     </svg>
-                                    <p class="text-gray-900 font-medium text-lg">
+                                    <p
+                                        class="text-gray-900 font-medium text-lg"
+                                    >
                                         {{ selectedReport.location }}
                                     </p>
                                 </div>
@@ -597,33 +654,50 @@
                         <!-- Incident Description -->
                         <section class="bg-white border-2 border-red-200 p-6">
                             <div class="border-l-4 border-red-600 pl-4 mb-6">
-                                <h4 class="text-xl font-bold text-red-900 uppercase">
+                                <h4
+                                    class="text-xl font-bold text-red-900 uppercase"
+                                >
                                     Incident Description
                                 </h4>
                             </div>
                             <div class="bg-red-50 p-6 border border-red-200">
-                                <p class="text-gray-900 leading-relaxed font-medium text-base">
+                                <p
+                                    class="text-gray-900 leading-relaxed font-medium text-base"
+                                >
                                     {{ selectedReport.description }}
                                 </p>
                             </div>
                         </section>
 
                         <!-- Attached Evidence -->
-                        <section v-if="selectedReport.file_path" class="bg-white border-2 border-purple-200 p-6">
+                        <section
+                            v-if="selectedReport.file_path"
+                            class="bg-white border-2 border-purple-200 p-6"
+                        >
                             <div class="border-l-4 border-purple-600 pl-4 mb-6">
-                                <h4 class="text-xl font-bold text-purple-900 uppercase">
+                                <h4
+                                    class="text-xl font-bold text-purple-900 uppercase"
+                                >
                                     Photographic Evidence
                                 </h4>
                             </div>
-                            <div class="bg-purple-50 p-4 border border-purple-200">
+                            <div
+                                class="bg-purple-50 p-4 border border-purple-200"
+                            >
                                 <div class="text-center">
                                     <img
                                         :src="selectedReport.file_path"
                                         alt="Report Evidence"
                                         class="max-w-full h-auto rounded-lg border-2 border-gray-300 shadow-lg cursor-pointer hover:opacity-90 transition-opacity mx-auto"
-                                        @click="openImageModal(selectedReport.file_path)"
+                                        @click="
+                                            openImageModal(
+                                                selectedReport.file_path
+                                            )
+                                        "
                                     />
-                                    <p class="text-purple-800 text-sm font-medium mt-3 uppercase">
+                                    <p
+                                        class="text-purple-800 text-sm font-medium mt-3 uppercase"
+                                    >
                                         Click to view full size
                                     </p>
                                 </div>
@@ -633,25 +707,45 @@
                         <!-- Report Timeline -->
                         <section class="bg-white border-2 border-gray-300 p-6">
                             <div class="border-l-4 border-gray-600 pl-4 mb-6">
-                                <h4 class="text-xl font-bold text-gray-900 uppercase">
+                                <h4
+                                    class="text-xl font-bold text-gray-900 uppercase"
+                                >
                                     Report Timeline
                                 </h4>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div class="text-center p-4 bg-gray-50 border border-gray-300">
-                                    <label class="block text-sm font-bold text-gray-800 uppercase tracking-wide mb-2">
+                                <div
+                                    class="text-center p-4 bg-gray-50 border border-gray-300"
+                                >
+                                    <label
+                                        class="block text-sm font-bold text-gray-800 uppercase tracking-wide mb-2"
+                                    >
                                         Date Reported
                                     </label>
-                                    <p class="text-gray-900 font-medium text-lg">
-                                        {{ formatDate(selectedReport.created_at) }}
+                                    <p
+                                        class="text-gray-900 font-medium text-lg"
+                                    >
+                                        {{
+                                            formatDate(
+                                                selectedReport.created_at
+                                            )
+                                        }}
                                     </p>
                                 </div>
-                                <div class="text-center p-4 bg-gray-50 border border-gray-300">
-                                    <label class="block text-sm font-bold text-gray-800 uppercase tracking-wide mb-2">
+                                <div
+                                    class="text-center p-4 bg-gray-50 border border-gray-300"
+                                >
+                                    <label
+                                        class="block text-sm font-bold text-gray-800 uppercase tracking-wide mb-2"
+                                    >
                                         Report Priority
                                     </label>
-                                    <div class="flex items-center justify-center">
-                                        <span class="inline-flex items-center px-4 py-2 bg-yellow-100 text-yellow-800 rounded font-bold uppercase text-sm border border-yellow-300">
+                                    <div
+                                        class="flex items-center justify-center"
+                                    >
+                                        <span
+                                            class="inline-flex items-center px-4 py-2 bg-yellow-100 text-yellow-800 rounded font-bold uppercase text-sm border border-yellow-300"
+                                        >
                                             Standard Processing
                                         </span>
                                     </div>
@@ -663,15 +757,55 @@
                     <!-- Footer -->
                     <div class="bg-gray-200 border-t-2 border-gray-300 p-4">
                         <div class="text-center">
-                            
                             <p class="text-gray-600 text-xs mt-1">
-                                This report is confidential and for authorized personnel only. Report ID: #{{ selectedReport.id }}
+                                This report is confidential and for authorized
+                                personnel only. Report ID: #{{
+                                    selectedReport.id
+                                }}
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Confirm Delete Modal -->
+            <div
+                v-if="confirmDelete"
+                class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+            >
+                <div class="bg-white rounded-2xl shadow-2xl max-w-md w-full">
+                    <div class="px-8 py-6 border-b border-slate-200">
+                        <h3 class="text-lg font-semibold text-slate-800">
+                            Confirm Delete
+                        </h3>
+                    </div>
+
+                    <div class="p-8">
+                        <p class="text-slate-600 mb-6">
+                            Are you sure you want to delete report #{{
+                                confirmDelete.id
+                            }}
+                            by {{ confirmDelete.user_name }}? This action cannot
+                            be undone.
+                        </p>
+
+                        <div class="flex justify-end space-x-3">
+                            <button
+                                @click="confirmDelete = null"
+                                class="px-4 py-2 text-slate-600 hover:text-slate-800 font-medium transition-colors duration-200"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                @click="confirmDeleteReport"
+                                class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors duration-200"
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Image Modal -->
             <div
@@ -715,8 +849,10 @@
 import AdminLayout from "@/Layouts/AdminLayout.vue";
 import { ref, computed, onMounted } from "vue";
 import { router } from "@inertiajs/vue3";
-import { notifyMinimal } from "@/globalFunctions.js";
+import { notifyMinimal, getLogoBase64 } from "@/globalFunctions.js";
 import ActionButton from "@/Components/ActionButton.vue";
+import { jsPDF } from "jspdf";
+import { autoTable } from "jspdf-autotable";
 
 const props = defineProps({
     issues: Array,
@@ -837,6 +973,214 @@ const updateStatus = (issue) => {
     );
 };
 
+
+
+const exportToPDF = async () => {
+    const doc = new jsPDF();
+
+    const logoBase64 = await getLogoBase64();
+
+    const pageWidth = doc.internal.pageSize.width;
+    const pageHeight = doc.internal.pageSize.height;
+    const leftMargin = 15;
+    const rightMargin = 15;
+    const usableWidth = pageWidth - leftMargin - rightMargin;
+    let yPosition = 8; // Reduced top margin
+
+    if (logoBase64) {
+        const logoWidth = 15; // Smaller logo
+        const logoHeight = 15;
+        const logoX = (pageWidth - logoWidth) / 2;
+
+        doc.addImage(
+            logoBase64,
+            "PNG",
+            logoX,
+            yPosition,
+            logoWidth,
+            logoHeight
+        );
+        yPosition += logoHeight + 5; // Reduced space between logo and subtitle
+    }
+
+    // Add subtitle lines
+    doc.setFontSize(12);
+    doc.setFont(undefined, "normal");
+    
+    const subtitle1 = "Municipality of Tubod";
+    const subtitle1Width = doc.getTextWidth(subtitle1);
+    const subtitle1X = (pageWidth - subtitle1Width) / 2;
+    doc.text(subtitle1, subtitle1X, yPosition);
+    yPosition += 5;
+    
+    const subtitle2 = "Surigao del Norte";
+    const subtitle2Width = doc.getTextWidth(subtitle2);
+    const subtitle2X = (pageWidth - subtitle2Width) / 2;
+    doc.text(subtitle2, subtitle2X, yPosition);
+    yPosition += 8; // Space before main title
+
+    doc.setFontSize(16);
+    doc.setFont(undefined, "bold");
+    const title = "List of Reports";
+    const titleWidth = doc.getTextWidth(title);
+    const titleX = (pageWidth - titleWidth) / 2;
+    doc.text(title, titleX, yPosition);
+
+    yPosition += 10; // Reduced space after title
+
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(10);
+    const totalReportsText = `Total Reports: ${filteredIssues.value.length}`;
+    const isFiltered = selectedStatus.value || selectedType.value || searchQuery.value;
+
+    if (isFiltered) {
+        const filteredText = "[Filtered Results]";
+        const filteredTextWidth = doc.getTextWidth(filteredText);
+        const totalReportsWidth = doc.getTextWidth(totalReportsText);
+
+        // Position filtered text on the right with proper margin
+        doc.text(filteredText, pageWidth - filteredTextWidth - rightMargin, yPosition);
+
+        // Position total reports text to the left of filtered text
+        doc.text(
+            totalReportsText,
+            pageWidth - filteredTextWidth - totalReportsWidth - rightMargin - 10,
+            yPosition
+        );
+    } else {
+        const totalReportsWidth = doc.getTextWidth(totalReportsText);
+        doc.text(
+            totalReportsText,
+            pageWidth - totalReportsWidth - rightMargin,
+            yPosition
+        );
+    }
+
+    yPosition += 8; // Reduced space before table
+
+    const tableData = filteredIssues.value.map((issue) => [
+        issue.id || "",
+        issue.user_name || "",
+        capitalizeFirst(issue.type || ""),
+        issue.location || "",
+        issue.description || "",
+        capitalizeFirst(issue.status || "pending"),
+        formatDate(issue.created_at),
+    ]);
+
+    autoTable(doc, {
+        head: [
+            [
+                "Report ID",
+                "Reporter",
+                "Type",
+                "Location",
+                "Description",
+                "Status",
+                "Date Reported",
+            ],
+        ],
+        body: tableData,
+        startY: yPosition,
+        margin: { left: leftMargin, right: rightMargin }, // Proper margins
+        styles: {
+            fontSize: 8,
+            cellPadding: 2, // Reduced cell padding
+        },
+        headStyles: {
+            // fillColor: [59, 130, 246],
+            textColor: 255,
+            fontStyle: "bold",
+        },
+        // Adjusted column widths to fit within margins
+        columnStyles: {
+            0: { cellWidth: 16 }, // Report ID
+            1: { cellWidth: 22 }, // Reporter
+            2: { cellWidth: 18 }, // Type
+            3: { cellWidth: 30 }, // Location
+            4: { cellWidth: 40 }, // Description
+            5: { cellWidth: 18 }, // Status
+            6: { cellWidth: 37 }, // Date Reported
+        },
+        didParseCell: function (data) {
+            if (data.column.index === 5) { // Status column
+                if (data.cell.text[0] === "Resolved") {
+                    data.cell.styles.textColor = [34, 197, 94]; // Green
+                } else if (data.cell.text[0] === "In progress") {
+                    data.cell.styles.textColor = [59, 130, 246]; // Blue
+                } else if (data.cell.text[0] === "Pending") {
+                    data.cell.styles.textColor = [245, 158, 11]; // Yellow
+                }
+            }
+        },
+        // Ensure table respects margins
+        tableWidth: 'auto',
+        theme: 'grid'
+    });
+
+    const finalY = doc.lastAutoTable.finalY || 50;
+    
+    // Generated timestamp with proper margin
+    doc.setFontSize(9);
+    doc.setFont(undefined, "normal");
+    const generatedText = `Generated on: ${new Date().toLocaleString()}`;
+    doc.text(
+        generatedText,
+        pageWidth - doc.getTextWidth(generatedText) - rightMargin,
+        finalY + 10 // Reduced spacing
+    );
+
+    // Add summary statistics with proper margins
+    yPosition = finalY + 18; // Reduced spacing
+    doc.setFontSize(10);
+    doc.setFont(undefined, "bold");
+    doc.text("Report Summary:", leftMargin, yPosition);
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(9);
+    yPosition += 6; // Reduced spacing
+    doc.text(`• Pending: ${getStatusCount("pending")}`, leftMargin + 5, yPosition);
+    yPosition += 4; // Reduced spacing
+    doc.text(`• In Progress: ${getStatusCount("in_progress")}`, leftMargin + 5, yPosition);
+    yPosition += 4; // Reduced spacing
+    doc.text(`• Resolved: ${getStatusCount("resolved")}`, leftMargin + 5, yPosition);
+
+    // Page numbers with proper margins
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.text(
+            `Page ${i} of ${pageCount}`,
+            pageWidth - 35,
+            pageHeight - 10
+        );
+    }
+
+    const pdfBlob = doc.output("blob");
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    window.open(pdfUrl, "_blank");
+
+    notifyMinimal('Reports PDF opened in new tab!', 'success');
+};
+
+const exportFeedback = async () => {
+    isExporting.value = true;
+
+    try {
+        await exportToPDF();
+    } catch (error) {
+        console.error("Export error:", error);
+        notifyMinimal("Failed to export reports. Please try again.", "error");
+    } finally {
+        setTimeout(() => {
+            isExporting.value = false;
+        }, 1000);
+    }
+};
+
+
+
 const quickUpdateStatus = (issue) => {
     const statusOrder = ["pending", "in_progress", "resolved"];
     const currentIndex = statusOrder.indexOf(issue.status);
@@ -875,20 +1219,6 @@ const quickUpdateStatus = (issue) => {
     );
 };
 
-const exportFeedback = () => {
-    isExporting.value = true;
-
-    try {
-        window.location.href = route("admin.report.export");
-        notifyMinimal("Export started successfully!", "success");
-    } catch (error) {
-        notifyMinimal("Failed to export data. Please try again.", "error");
-    }
-
-    setTimeout(() => {
-        isExporting.value = false;
-    }, 3000);
-};
 
 const viewReport = (issue) => {
     selectedReport.value = issue;
@@ -911,6 +1241,31 @@ const closeImageModal = () => {
 const handleImageError = (event) => {
     console.error("Image failed to load:", event.target.src);
     event.target.style.display = "none";
+};
+
+const confirmDelete = ref(null);
+const deleteReport = (issue) => {
+    confirmDelete.value = issue;
+};
+
+const confirmDeleteReport = () => {
+    const issue = confirmDelete.value;
+
+    router.delete(route("admin.report.destroy", issue.id), {
+        onSuccess: () => {
+            notifyMinimal("Report deleted successfully!", "success");
+        },
+        onError: () => {
+            notifyMinimal(
+                "Failed to delete report. Please try again.",
+                "error"
+            );
+        },
+        onFinish: () => {
+            confirmDelete.value = null;
+        },
+        preserveScroll: true,
+    });
 };
 
 const filterIssues = () => {};

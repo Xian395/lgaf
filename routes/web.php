@@ -62,6 +62,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/report', [ManageReportController::class, 'index'])->name('report.index');
         Route::put('/report/{issue}/update-status', [ManageReportController::class, 'updateStatus'])->name('report.updateStatus');
         Route::get('/report/export', [ManageReportController::class, 'export'])->name('report.export');
+        Route::delete('/report/{report}', [ManageReportController::class, 'destroy'])->name('report.destroy');
     });
 
     // Staff Routes

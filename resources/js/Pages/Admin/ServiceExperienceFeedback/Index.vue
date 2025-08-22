@@ -534,14 +534,15 @@
                                     <td
                                         class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"
                                     >
-                                        
                                         <div
                                             class="flex items-center space-x-2"
                                         >
                                             <ActionButton
                                                 types="view"
                                                 size="md"
-                                                @click="viewExperience(experience)"
+                                                @click="
+                                                    viewExperience(experience)
+                                                "
                                             >
                                                 View
                                             </ActionButton>
@@ -554,70 +555,68 @@
                                             >
                                                 Delete
                                             </ActionButton>
-
-                                        
                                         </div>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <!-- Empty State -->
-        <div
-            v-if="experiences.data.length === 0"
-            class="text-center py-12"
-        >
-            <svg
-                class="mx-auto h-12 w-12 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-            >
-                <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                />
-            </svg>
-            <h3
-                class="mt-2 text-sm font-medium text-gray-900"
-            >
-                No service experiences found
-            </h3>
-            <p class="mt-1 text-sm text-gray-500">
-                No service experiences have been recorded yet.
-            </p>
-        </div>
+                        <div
+                            v-if="experiences.data.length === 0"
+                            class="text-center py-12"
+                        >
+                            <svg
+                                class="mx-auto h-12 w-12 text-gray-400"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                                />
+                            </svg>
+                            <h3 class="mt-2 text-sm font-medium text-gray-900">
+                                No service experiences found
+                            </h3>
+                            <p class="mt-1 text-sm text-gray-500">
+                                No service experiences have been recorded yet.
+                            </p>
+                        </div>
 
-        <div
-            v-if="experiences.links.length > 3"
-            class="px-6 py-4 border-t border-slate-200"
-        >
-            <div class="flex items-center justify-between">
-                <div class="text-sm text-slate-700">
-                    Showing {{ experiences.from }} to
-                    {{ experiences.to }} of
-                    {{ experiences.total }} results
-                </div>
-                <div class="flex space-x-1">
-                    <button
-                        v-for="link in experiences.links"
-                        :key="link.label"
-                        @click="link.url && changePage(link.url)"
-                        :disabled="!link.url"
-                        :class="[
-                            'px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200',
-                            link.active
-                                ? 'bg-blue-600 text-white'
-                                : link.url
-                                ? 'text-slate-700 hover:bg-slate-100'
-                                : 'text-slate-400 cursor-not-allowed',
-                        ]"
-                        v-html="link.label"
-                    />
-                </div>
-            </div>
-        </div>
+                        <div
+                            v-if="experiences.links.length > 3"
+                            class="px-6 py-4 border-t border-slate-200"
+                        >
+                            <div class="flex items-center justify-between">
+                                <div class="text-sm text-slate-700">
+                                    Showing {{ experiences.from }} to
+                                    {{ experiences.to }} of
+                                    {{ experiences.total }} results
+                                </div>
+                                <div class="flex space-x-1">
+                                    <button
+                                        v-for="link in experiences.links"
+                                        :key="link.label"
+                                        @click="
+                                            link.url && changePage(link.url)
+                                        "
+                                        :disabled="!link.url"
+                                        :class="[
+                                            'px-3 py-2 text-sm font-medium rounded-md transition-colors duration-200',
+                                            link.active
+                                                ? 'bg-blue-600 text-white'
+                                                : link.url
+                                                ? 'text-slate-700 hover:bg-slate-100'
+                                                : 'text-slate-400 cursor-not-allowed',
+                                        ]"
+                                        v-html="link.label"
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div
@@ -816,160 +815,393 @@
     </AdminLayout>
 </template>
 
-<script>
-import ActionButton from "../../../Components/ActionButton.vue";
+<script setup>
 import AdminLayout from "@/Layouts/AdminLayout.vue";
-import { Head, router } from "@inertiajs/vue3";
+import { ref } from "vue";
+import { router } from "@inertiajs/vue3";
+import ActionButton from "@/Components/ActionButton.vue";
+import { notifyMinimal, getLogoBase64 } from "@/globalFunctions.js";
+import { jsPDF } from "jspdf";
+import { autoTable } from "jspdf-autotable";
+
+const props = defineProps({
+    experiences: Object,
+    stats: Object,
+});
+
+const selectedExperience = ref(null);
+const confirmDelete = ref(null);
+
+const viewExperience = (experience) => {
+    selectedExperience.value = experience;
+};
+
+const deleteExperience = (experience) => {
+    confirmDelete.value = experience;
+};
 
 
-export default {
-    components: {
-        AdminLayout,
-        Head,
-    },
+const exportToPDF = async () => {
+    const doc = new jsPDF();
 
-    props: {
-        experiences: Object,
-        stats: Object,
-    },
+    const logoBase64 = await getLogoBase64();
 
-    data() {
-        return {
-            selectedExperience: null,
-            confirmDelete: null,
-        };
-    },
+    const pageWidth = doc.internal.pageSize.width;
+    const pageHeight = doc.internal.pageSize.height;
+    const leftMargin = 15;
+    const rightMargin = 15;
+    const usableWidth = pageWidth - leftMargin - rightMargin;
+    let yPosition = 8; // Reduced top margin
 
-    methods: {
-        viewExperience(experience) {
-            this.selectedExperience = experience;
+    if (logoBase64) {
+        const logoWidth = 15; // Smaller logo
+        const logoHeight = 15;
+        const logoX = (pageWidth - logoWidth) / 2;
+
+        doc.addImage(
+            logoBase64,
+            "PNG",
+            logoX,
+            yPosition,
+            logoWidth,
+            logoHeight
+        );
+        yPosition += logoHeight + 5; // Reduced space between logo and subtitle
+    }
+
+    // Add subtitle lines
+    doc.setFontSize(12);
+    doc.setFont(undefined, "normal");
+    
+    const subtitle1 = "Municipality of Tubod";
+    const subtitle1Width = doc.getTextWidth(subtitle1);
+    const subtitle1X = (pageWidth - subtitle1Width) / 2;
+    doc.text(subtitle1, subtitle1X, yPosition);
+    yPosition += 5;
+    
+    const subtitle2 = "Surigao del Norte";
+    const subtitle2Width = doc.getTextWidth(subtitle2);
+    const subtitle2X = (pageWidth - subtitle2Width) / 2;
+    doc.text(subtitle2, subtitle2X, yPosition);
+    yPosition += 8; // Space before main title
+
+    doc.setFontSize(16);
+    doc.setFont(undefined, "bold");
+    const title = "Service Experience Report";
+    const titleWidth = doc.getTextWidth(title);
+    const titleX = (pageWidth - titleWidth) / 2;
+    doc.text(title, titleX, yPosition);
+
+    yPosition += 10; // Reduced space after title
+
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(10);
+    const totalResponsesText = `Total Responses: ${props.stats.total_responses}`;
+    const avgRatingText = `Average Rating: ${props.stats.average_rating}/5`;
+    const recentText = `This Week: ${props.stats.recent_responses}`;
+
+    // Position statistics on the same line similar to the reports layout
+    doc.text(totalResponsesText, leftMargin, yPosition);
+    
+    const avgRatingWidth = doc.getTextWidth(avgRatingText);
+    const recentTextWidth = doc.getTextWidth(recentText);
+    
+    // Center the average rating
+    doc.text(avgRatingText, (pageWidth - avgRatingWidth) / 2, yPosition);
+    
+    // Position recent text on the right with proper margin
+    doc.text(recentText, pageWidth - recentTextWidth - rightMargin, yPosition);
+
+    yPosition += 8; // Reduced space before table
+
+    const tableData = props.experiences.data.map((experience) => [
+        experience.user?.email || "Anonymous",
+        `${experience.rating}/5`,
+        experience.courteous_staff || "N/A",
+        experience.completion_time || "N/A",
+        experience.easy_to_understand || "N/A",
+        formatDate(experience.created_at),
+    ]);
+
+    autoTable(doc, {
+        head: [
+            [
+                "User",
+                "Rating",
+                "Staff Courtesy",
+                "Completion Time",
+                "Easy to Understand",
+                "Date Submitted",
+            ],
+        ],
+        body: tableData,
+        startY: yPosition,
+        margin: { left: leftMargin, right: rightMargin }, // Proper margins
+        styles: {
+            fontSize: 8,
+            cellPadding: 2, // Reduced cell padding
         },
-
-        deleteExperience(experience) {
-            this.confirmDelete = experience;
+        headStyles: {
+            // fillColor: [59, 130, 246],
+            textColor: 255,
+            fontStyle: "bold",
         },
+        // Adjusted column widths to fit within margins
+        columnStyles: {
+            0: { cellWidth: 35 }, // User
+            1: { cellWidth: 20 }, // Rating
+            2: { cellWidth: 25 }, // Staff Courtesy
+            3: { cellWidth: 30 }, // Completion Time
+            4: { cellWidth: 30 }, // Easy to Understand
+            5: { cellWidth: 35 }, // Date Submitted
+        },
+        didParseCell: function (data) {
+            // Color code staff courtesy
+            if (data.column.index === 2) { // Staff Courtesy column
+                if (data.cell.text[0] === "Yes") {
+                    data.cell.styles.textColor = [34, 197, 94]; // Green
+                } else if (data.cell.text[0] === "No") {
+                    data.cell.styles.textColor = [239, 68, 68]; // Red
+                } else if (data.cell.text[0] === "Somewhat") {
+                    data.cell.styles.textColor = [245, 158, 11]; // Yellow
+                }
+            }
+            // Color code easy to understand
+            if (data.column.index === 4) { // Easy to Understand column
+                if (data.cell.text[0] === "Yes") {
+                    data.cell.styles.textColor = [59, 130, 246]; // Blue
+                } else if (data.cell.text[0] === "No") {
+                    data.cell.styles.textColor = [239, 68, 68]; // Red
+                } else if (data.cell.text[0] === "Somewhat") {
+                    data.cell.styles.textColor = [249, 115, 22]; // Orange
+                }
+            }
+        },
+        // Ensure table respects margins
+        tableWidth: 'auto',
+        theme: 'grid'
+    });
 
-       confirmDeleteExperience() {
-    if (this.confirmDelete) {
+    const finalY = doc.lastAutoTable.finalY || 50;
+    
+    // Generated timestamp with proper margin
+    doc.setFontSize(9);
+    doc.setFont(undefined, "normal");
+    const generatedText = `Generated on: ${new Date().toLocaleString()}`;
+    doc.text(
+        generatedText,
+        pageWidth - doc.getTextWidth(generatedText) - rightMargin,
+        finalY + 10 // Reduced spacing
+    );
+
+    // Add detailed statistics with proper margins
+    yPosition = finalY + 18; // Reduced spacing
+    doc.setFontSize(10);
+    doc.setFont(undefined, "bold");
+    doc.text("Experience Summary:", leftMargin, yPosition);
+    
+    doc.setFont(undefined, "normal");
+    doc.setFontSize(9);
+    yPosition += 6; // Reduced spacing
+
+    // Rating Distribution
+    doc.setFont(undefined, "bold");
+    doc.setFontSize(9);
+    doc.text("Rating Distribution:", leftMargin, yPosition);
+    doc.setFont(undefined, "normal");
+    yPosition += 4;
+
+    Object.entries(props.stats.rating_distribution).forEach(([rating, count]) => {
+        const percentage = getPercentage(count, props.stats.total_responses);
+        doc.text(`• ${rating} Star: ${count} (${percentage}%)`, leftMargin + 5, yPosition);
+        yPosition += 4; // Reduced spacing
+    });
+
+    yPosition += 4;
+
+    // Staff Courtesy Statistics
+    doc.setFont(undefined, "bold");
+    doc.text("Staff Courtesy:", leftMargin, yPosition);
+    doc.setFont(undefined, "normal");
+    yPosition += 4;
+
+    Object.entries(props.stats.satisfaction_metrics.courteous_staff).forEach(([response, count]) => {
+        const percentage = getPercentage(count, getTotalCourtesy());
+        doc.text(`• ${response}: ${count} (${percentage}%)`, leftMargin + 5, yPosition);
+        yPosition += 4; // Reduced spacing
+    });
+
+    yPosition += 4;
+
+    // Easy to Understand Statistics
+    doc.setFont(undefined, "bold");
+    doc.text("Easy to Understand:", leftMargin, yPosition);
+    doc.setFont(undefined, "normal");
+    yPosition += 4;
+
+    Object.entries(props.stats.satisfaction_metrics.easy_to_understand).forEach(([response, count]) => {
+        const percentage = getPercentage(count, getTotalUnderstand());
+        doc.text(`• ${response}: ${count} (${percentage}%)`, leftMargin + 5, yPosition);
+        yPosition += 4; // Reduced spacing
+    });
+
+    yPosition += 4;
+
+    // Completion Time Statistics
+    doc.setFont(undefined, "bold");
+    doc.text("Service Completion Time:", leftMargin, yPosition);
+    doc.setFont(undefined, "normal");
+    yPosition += 4;
+
+    Object.entries(props.stats.satisfaction_metrics.completion_time).forEach(([time, count]) => {
+        const percentage = getPercentage(count, getTotalCompletion());
+        doc.text(`• ${time}: ${count} (${percentage}%)`, leftMargin + 5, yPosition);
+        yPosition += 4; // Reduced spacing
+    });
+
+    // Page numbers with proper margins
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let i = 1; i <= pageCount; i++) {
+        doc.setPage(i);
+        doc.setFontSize(8);
+        doc.text(
+            `Page ${i} of ${pageCount}`,
+            pageWidth - 35,
+            pageHeight - 10
+        );
+    }
+
+    const pdfBlob = doc.output("blob");
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    window.open(pdfUrl, "_blank");
+
+    notifyMinimal('Service Experience Report PDF opened in new tab!', 'success');
+};
+
+// Update the exportData function
+const exportData = () => {
+    exportToPDF();
+};
+
+
+const confirmDeleteExperience = () => {
+    if (confirmDelete.value) {
         router.delete(
-            route("admin.service.destroy", this.confirmDelete.id),
+            route("admin.service.destroy", confirmDelete.value.id),
             {
                 onSuccess: () => {
-                    this.confirmDelete = null;
+                    notifyMinimal(
+                        "Service deleted successfully",
+                        "success"
+                    );
+                },
+                onError: () => {
+                    notifyMinimal("Failed to delete service", "error");
+                },
+                onFinish: () => {
+                    confirmDelete.value = null;
                 },
             }
         );
     }
-},
+};
 
-        changePage(url) {
-            router.get(url);
-        },
+const changePage = (url) => {
+    router.get(url);
+};
 
-        viewAnalytics() {
-            router.get(route("admin.manage-service-experience.analytics"));
-        },
 
-        exportData() {
-            window.open(
-                route("admin.manage-service-experience.export"),
-                "_blank"
-            );
-        },
+const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+    });
+};
 
-        formatDate(dateString) {
-            const date = new Date(dateString);
-            return date.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "short",
-                day: "numeric",
-                hour: "2-digit",
-                minute: "2-digit",
-            });
-        },
+const getUserInitials = (email) => {
+    if (!email) return "A";
+    const parts = email.split("@")[0].split(".");
+    if (parts.length >= 2) {
+        return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    return email[0].toUpperCase();
+};
 
-        getUserInitials(email) {
-            if (!email) return "A";
-            const parts = email.split("@")[0].split(".");
-            if (parts.length >= 2) {
-                return (parts[0][0] + parts[1][0]).toUpperCase();
-            }
-            return email[0].toUpperCase();
-        },
+const getCourtesyColor = (response) => {
+    switch (response) {
+        case "Yes":
+            return "bg-green-500";
+        case "No":
+            return "bg-red-500";
+        case "Somewhat":
+            return "bg-yellow-500";
+        default:
+            return "bg-slate-400";
+    }
+};
 
-        getCourtesyColor(response) {
-            switch (response) {
-                case "Yes":
-                    return "bg-green-500";
-                case "No":
-                    return "bg-red-500";
-                case "Somewhat":
-                    return "bg-yellow-500";
-                default:
-                    return "bg-slate-400";
-            }
-        },
+const getUnderstandColor = (response) => {
+    switch (response) {
+        case "Yes":
+            return "bg-blue-500";
+        case "No":
+            return "bg-red-500";
+        case "Somewhat":
+            return "bg-orange-500";
+        default:
+            return "bg-slate-400";
+    }
+};
 
-        getUnderstandColor(response) {
-            switch (response) {
-                case "Yes":
-                    return "bg-blue-500";
-                case "No":
-                    return "bg-red-500";
-                case "Somewhat":
-                    return "bg-orange-500";
-                default:
-                    return "bg-slate-400";
-            }
-        },
+const getCourtesyBadgeClass = (response) => {
+    switch (response) {
+        case "Yes":
+            return "bg-green-100 text-green-800";
+        case "No":
+            return "bg-red-100 text-red-800";
+        case "Somewhat":
+            return "bg-yellow-100 text-yellow-800";
+        default:
+            return "bg-slate-100 text-slate-800";
+    }
+};
 
-        getCourtesyBadgeClass(response) {
-            switch (response) {
-                case "Yes":
-                    return "bg-green-100 text-green-800";
-                case "No":
-                    return "bg-red-100 text-red-800";
-                case "Somewhat":
-                    return "bg-yellow-100 text-yellow-800";
-                default:
-                    return "bg-slate-100 text-slate-800";
-            }
-        },
+const getUnderstandBadgeClass = (response) => {
+    switch (response) {
+        case "Yes":
+            return "bg-blue-100 text-blue-800";
+        case "No":
+            return "bg-red-100 text-red-800";
+        case "Somewhat":
+            return "bg-orange-100 text-orange-800";
+        default:
+            return "bg-slate-100 text-slate-800";
+    }
+};
 
-        getUnderstandBadgeClass(response) {
-            switch (response) {
-                case "Yes":
-                    return "bg-blue-100 text-blue-800";
-                case "No":
-                    return "bg-red-100 text-red-800";
-                case "Somewhat":
-                    return "bg-orange-100 text-orange-800";
-                default:
-                    return "bg-slate-100 text-slate-800";
-            }
-        },
+const getPercentage = (value, total) => {
+    return total > 0 ? Math.round((value / total) * 100) : 0;
+};
 
-        getPercentage(value, total) {
-            return total > 0 ? Math.round((value / total) * 100) : 0;
-        },
+const getTotalCourtesy = () => {
+    const metrics = props.stats.satisfaction_metrics.courteous_staff;
+    return metrics.Yes + metrics.No + metrics.Somewhat;
+};
 
-        getTotalCourtesy() {
-            const metrics = this.stats.satisfaction_metrics.courteous_staff;
-            return metrics.Yes + metrics.No + metrics.Somewhat;
-        },
+const getTotalUnderstand = () => {
+    const metrics = props.stats.satisfaction_metrics.easy_to_understand;
+    return metrics.Yes + metrics.No + metrics.Somewhat;
+};
 
-        getTotalUnderstand() {
-            const metrics = this.stats.satisfaction_metrics.easy_to_understand;
-            return metrics.Yes + metrics.No + metrics.Somewhat;
-        },
-
-        getTotalCompletion() {
-            const metrics = this.stats.satisfaction_metrics.completion_time;
-            return Object.values(metrics).reduce(
-                (sum, count) => sum + count,
-                0
-            );
-        },
-    },
+const getTotalCompletion = () => {
+    const metrics = props.stats.satisfaction_metrics.completion_time;
+    return Object.values(metrics).reduce(
+        (sum, count) => sum + count,
+        0
+    );
 };
 </script>
