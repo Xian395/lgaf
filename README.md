@@ -3,6 +3,10 @@
 ## Setup Instructions
 
 ```bash
+composer install
+```
+
+```bash
 php artisan migrate
 ```
 
