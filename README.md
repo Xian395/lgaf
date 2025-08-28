@@ -18,6 +18,14 @@ php artisan db:seed --class=UserSeeder
 npm install
 ```
 
+```bash
+php artisan serve
+```
+
+```bash
+npm run dev
+```
+
 ## Login Credentials
 
 ### Admin User
