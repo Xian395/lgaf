@@ -3,6 +3,18 @@
 ## Setup Instructions
 
 ```bash
+composer install
+```
+
+```bash
+cp .env.example .env
+```
+
+```bash
+php artisan key:generate
+```
+
+```bash
 php artisan migrate
 ```
 
@@ -12,6 +24,14 @@ php artisan db:seed --class=UserSeeder
 
 ```bash
 npm install
+```
+
+```bash
+php artisan serve
+```
+
+```bash
+npm run dev
 ```
 
 ## Login Credentials
