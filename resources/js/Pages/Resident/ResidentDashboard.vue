@@ -24,46 +24,46 @@
                         <div
                             class="flex items-center justify-center gap-4 sm:gap-8 md:gap-12 lg:gap-20 mb-8"
                         >
-                            <!-- Philippine National Logo -->
+                            <!-- Tubod LGU Logo -->
                             <div
                                 class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center overflow-hidden"
                             >
                                 <img
                                     src="/logo.png"
-                                    alt="Philippine National Logo"
+                                    alt="Tubod LGU"
                                     class="w-full h-full object-contain"
                                 />
                             </div>
 
-                            <!-- Provincial Government Logo -->
+                            <!-- DILG Logo -->
                             <div
                                 class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center overflow-hidden"
                             >
                                 <img
                                     src="/DILG.png"
-                                    alt="Provincial Government Logo"
+                                    alt="DILG"
                                     class="w-full h-full object-contain"
                                 />
                             </div>
 
-                            <!-- Municipal Government Logo -->
+                            <!-- BAGONG-PILIPINAS Logo -->
                             <div
                                 class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center overflow-hidden"
                             >
                                 <img
-                                    src="/SEAL.png"
-                                    alt="Municipal Government Logo"
+                                    src="/bbm.png"
+                                    alt="BAGONG PILIPINAS"
                                     class="w-full h-full object-contain"
                                 />
                             </div>
 
-                            <!-- Local Barangay Logo -->
+                            <!-- DSWD Logo -->
                             <div
                                 class="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 flex items-center justify-center overflow-hidden"
                             >
                                 <img
                                     src="/DSWD.png"
-                                    alt="Local Barangay Logo"
+                                    alt="DSWD"
                                     class="w-full h-full object-contain"
                                 />
                             </div>

@@ -1,28 +1,29 @@
 <?php
 
-use App\Http\Controllers\Admin\ManageReportController;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
-
 use App\Http\Controllers\ProfileController;
+
+use App\Http\Controllers\Resident\AboutController;
 
 
 use App\Http\Controllers\StaffDashboardController;
 
-use App\Http\Controllers\Resident\AboutController;
 use App\Http\Controllers\Resident\FeedbackController;
+use App\Http\Controllers\Admin\ManageReportController;
 use App\Http\Controllers\Resident\MyRequestController;
 use App\Http\Controllers\Resident\AssistanceController;
-use App\Http\Controllers\Resident\ResidentDashboardController;
-use App\Http\Controllers\Resident\ServiceExperienceController;
-use App\Http\Controllers\Resident\GeneralIntakeSheetController;
+use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\ManageFeedbackController;
+use App\Http\Controllers\Admin\UserManagementController;
 use App\Http\Controllers\Resident\ReportIssueController;
 
 
-use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Admin\ManageFeedbackController;
 use App\Http\Controllers\Admin\ManageAssistanceController;
+use App\Http\Controllers\Resident\ResidentDashboardController;
+use App\Http\Controllers\Resident\ServiceExperienceController;
+use App\Http\Controllers\Resident\GeneralIntakeSheetController;
 use App\Http\Controllers\Admin\ManageServiceExperienceController;
 
 Route::get('/', function () {
@@ -63,6 +64,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/report/{issue}/update-status', [ManageReportController::class, 'updateStatus'])->name('report.updateStatus');
         Route::get('/report/export', [ManageReportController::class, 'export'])->name('report.export');
         Route::delete('/report/{report}', [ManageReportController::class, 'destroy'])->name('report.destroy');
+
+
+        // User Management Routes
+    Route::get('/user', [UserManagementController::class, 'index'])->name('user.index');
+    Route::post('/user', [UserManagementController::class, 'store'])->name('user.store');
+    Route::put('/user/{user}', [UserManagementController::class, 'update'])->name('user.update');
+    Route::delete('/user/{user}', [UserManagementController::class, 'destroy'])->name('user.destroy');
     });
 
     // Staff Routes

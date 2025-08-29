@@ -11,10 +11,20 @@ use Illuminate\Support\Facades\Auth;
 
 class GeneralIntakeSheetController extends Controller
 {
-    public function index()
-    {
-        return Inertia::render('Resident/Assistance/Index');
-    }
+public function index()
+{
+    $intakeSheets = GeneralIntakeSheet::where('user_id', Auth::id())
+        ->orderBy('created_at', 'desc')
+        ->get();
+        
+    // If you need issues data too, add this:
+    // $issues = YourIssueModel::where('user_id', Auth::id())->get();
+
+    return Inertia::render('Resident/Assistance/Index', [
+        'intakeSheets' => $intakeSheets,
+        // 'issues' => $issues ?? []
+    ]);
+}
 
     public function store(Request $request)
     {
@@ -85,14 +95,105 @@ class GeneralIntakeSheetController extends Controller
             'status' => 'nullable|in:PENDING,IN_PROGRESS,VERIFIED,REJECTED',
         ]);
 
-          $user = Auth::user();
+        $user = Auth::user();
 
         GeneralIntakeSheet::create(array_merge($validated, 
         [
             'user_id' => Auth::id(),
             'phone' => $user->phone,
-     ]));
+        ]));
 
         return redirect()->route('resident.dashboard')->with('success', 'Assistance request submitted successfully.');
+    }
+
+    /**
+     * Get all intake sheets for the authenticated user
+     */
+    public function getUserIntakeSheets()
+    {
+        $intakeSheets = GeneralIntakeSheet::where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json($intakeSheets);
+    }
+
+    /**
+     * Get a specific intake sheet by ID (only if it belongs to the authenticated user)
+     */
+    public function show($id)
+    {
+        $intakeSheet = GeneralIntakeSheet::where('id', $id)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        if (!$intakeSheet) {
+            return response()->json(['message' => 'Intake sheet not found'], 404);
+        }
+
+        return response()->json($intakeSheet);
+    }
+
+    /**
+     * Get all intake sheets with pagination and optional filtering
+     */
+    public function getIntakeSheets(Request $request)
+    {
+        $query = GeneralIntakeSheet::where('user_id', Auth::id());
+
+        // Filter by status if provided
+        if ($request->has('status') && $request->status !== '') {
+            $query->where('status', $request->status);
+        }
+
+        // Search by client name or beneficiary name
+        if ($request->has('search') && $request->search !== '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('client_name', 'like', "%{$search}%")
+                  ->orWhere('beneficiary_name', 'like', "%{$search}%");
+            });
+        }
+
+        // Order by creation date (newest first)
+        $query->orderBy('created_at', 'desc');
+
+        // Paginate results
+        $perPage = $request->get('per_page', 10);
+        $intakeSheets = $query->paginate($perPage);
+
+        return response()->json($intakeSheets);
+    }
+
+    /**
+     * Render the list view for intake sheets
+     */
+    public function list()
+    {
+        $intakeSheets = GeneralIntakeSheet::where('user_id', Auth::id())
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return Inertia::render('Resident/Assistance/List', [
+            'intakeSheets' => $intakeSheets
+        ]);
+    }
+
+    /**
+     * Get intake sheet statistics for the authenticated user
+     */
+    public function getStats()
+    {
+        $userId = Auth::id();
+        
+        $stats = [
+            'total' => GeneralIntakeSheet::where('user_id', $userId)->count(),
+            'pending' => GeneralIntakeSheet::where('user_id', $userId)->where('status', 'PENDING')->count(),
+            'in_progress' => GeneralIntakeSheet::where('user_id', $userId)->where('status', 'IN_PROGRESS')->count(),
+            'verified' => GeneralIntakeSheet::where('user_id', $userId)->where('status', 'VERIFIED')->count(),
+            'rejected' => GeneralIntakeSheet::where('user_id', $userId)->where('status', 'REJECTED')->count(),
+        ];
+
+        return response()->json($stats);
     }
 }

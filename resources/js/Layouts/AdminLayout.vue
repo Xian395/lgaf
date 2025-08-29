@@ -122,6 +122,20 @@
               </div>
             </div>
           </li>
+          <li>
+             <Link 
+              :href="route('admin.user.index')" 
+              :class="[
+                'block py-2 px-3 rounded md:border-0 md:p-0 transition-colors duration-200',
+                route().current('admin.user.index') 
+                  ? 'text-white bg-blue-600 md:text-blue-600 md:bg-transparent' 
+                  : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600'
+              ]"
+              aria-current="page"
+            >
+              manageUsers
+            </Link>
+          </li>
         </ul>
       </div>
 

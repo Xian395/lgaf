@@ -137,17 +137,17 @@
       <!-- User dropdown -->
       <div class="hidden md:flex items-center md:order-2 space-x-3 relative">
         <!-- My Requests Link -->
-<Link 
-  :href="route('resident.myrequest.index')" 
-  :class="[
-    'inline-flex items-center px-3 py-1 text-black font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105',
-    route().current('resident.myrequest.index') 
-      ? 'bg-gradient-to-r from-blue-200 to-purple-200 md:bg-transparent md:text-black md:shadow-none md:hover:shadow-none md:hover:scale-100' 
-      : 'bg-gradient-to-r from-blue-200 to-purple-200 md:bg-transparent md:text-black md:shadow-none md:hover:shadow-none md:hover:scale-100'
-  ]"
->
-  myAction
-</Link>
+  <Link 
+    :href="route('resident.myrequest.index')" 
+    class="relative bg-transparent px-4 py-1 flex items-center text-[17px] font-semibold no-underline cursor-pointer border border-blue-500 rounded-[25px] outline-none overflow-hidden text-blue-500 transition-colors duration-300 ease-out delay-100 text-center group hover:text-white hover:border-blue-500"
+  >
+    <!-- Pseudo element for hover effect -->
+    <span class="absolute top-0 left-0 right-0 bottom-0 m-auto rounded-full block w-80 h-80 -left-20 transition-all duration-500 ease-out -z-10 group-hover:shadow-[inset_0_0_0_10em_rgb(40,144,241)]"></span>
+    
+    <span class="mx-2.5 relative z-10">
+      myAction
+    </span>
+  </Link>
         
         <!-- Notifications Button -->
         <!-- <button class="relative p-2 text-gray-500 rounded-lg hover:bg-gray-100 transition-colors duration-200">
@@ -327,17 +327,22 @@
             About
           </Link>
           
-          <Link 
-            :href="route('resident.myrequest.index')" 
-  :class="[
-    'inline-flex items-center px-3 py-1 text-black font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105',
-    route().current('resident.myrequest.index') 
-      ? 'bg-gradient-to-r from-blue-200 to-purple-200 md:bg-transparent md:text-black md:shadow-none md:hover:shadow-none md:hover:scale-100' 
-      : 'bg-gradient-to-r from-blue-200 to-purple-200 md:bg-transparent md:text-black md:shadow-none md:hover:shadow-none md:hover:scale-100'
-  ]"
->
-            myAction
-          </Link>
+  <Link 
+    :href="route('resident.myrequest.index')" 
+    :class="[
+      'relative inline-flex items-center px-3 py-1 font-semibold rounded-2xl outline-none overflow-hidden transition-all duration-300 group',
+      route().current('resident.myrequest.index') 
+        ? 'bg-transparent border border-blue-500 text-blue-500 hover:text-white md:bg-blue-100 md:text-blue-800 md:border-none md:hover:text-blue-900' 
+        : 'bg-transparent border border-blue-500 text-blue-500 hover:text-white md:bg-transparent md:text-gray-600 md:hover:text-blue-600 md:border-none'
+    ]"
+  >
+    <!-- Hover effect circle for mobile -->
+    <span class="absolute top-0 left-0 right-0 bottom-0 m-auto rounded-full block w-80 h-80 -left-20 transition-all duration-500 ease-out -z-10 md:hidden group-hover:shadow-[inset_0_0_0_10em_rgb(40,144,241)]"></span>
+    
+    <span class="relative z-10">
+      myAction
+    </span>
+  </Link>
         </div>
         
         <!-- Mobile User Section -->
