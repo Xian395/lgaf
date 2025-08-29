@@ -525,20 +525,17 @@ const getResolvedCount = () => {
 button[style*="margin-bottom: -1px"] {
   border-bottom: 1px solid transparent;
 }
-
 button[style*="margin-bottom: -1px"].bg-white {
   border-bottom: 1px solid white;
   z-index: 1;
   position: relative;
 }
-
 /* Mobile responsive improvements */
 @media (max-width: 640px) {
   .overflow-x-auto {
     scrollbar-width: thin;
     scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
   }
-  
   .overflow-x-auto::-webkit-scrollbar {
     height: 4px;
   }
