@@ -13,7 +13,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->integer('rating')->between(1, 5);
             $table->enum('courteous_staff', ['Yes', 'No', 'Somewhat']);
-            $table->enum('completion_time', ['Less than 10 minutes', '10–30 minutes', 'More than 30 minutes', 'I didn’t complete it']);
+           $table->enum('completion_time', ['Less than 10 minutes', '10–30 minutes', 'More than 30 minutes', 'I did not complete it']);
             $table->enum('easy_to_understand', ['Yes', 'No', 'Somewhat']);
             $table->timestamps();
         });

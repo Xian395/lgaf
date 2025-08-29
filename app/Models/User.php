@@ -14,7 +14,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role', // Add role to fillable attributes
+         'phone',
+         'barangay',
+        'role', 
     ];
 
     protected $hidden = [

@@ -1,48 +1,59 @@
 <template>
-  <nav class="sticky top-0 z-50 bg-sky-50 border-sky-200 dark:bg-sky-900">
+  <nav class="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
       <!-- Logo -->
-      <Link :href="route('resident.dashboard')" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <ApplicationLogo class="h-8" />
-        <span class="self-center text-2xl font-semibold whitespace-nowrap text-sky-800 dark:text-sky-100">
-          LGU Connect
-        </span>
+      <Link :href="route('resident.dashboard')" class="flex items-center space-x-3">
+        <img src="/icon2.png" alt="LGU Connect Logo" class="h-10 w-10" />
+        <div class="flex flex-col">
+          <span class="text-xl font-bold text-blue-600">
+            LGU Connect
+          </span>
+          <span class="text-xs text-gray-500 font-medium">
+            Citizen Portal
+          </span>
+        </div>
       </Link>
 
       <!-- Mobile menu button -->
       <button 
         @click="toggleMobileMenu"
         type="button" 
-        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-sky-600 rounded-lg md:hidden hover:bg-sky-100 focus:outline-none focus:ring-2 focus:ring-sky-300 dark:text-sky-300 dark:hover:bg-sky-800 dark:focus:ring-sky-600" 
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-300"
         aria-controls="navbar-default" 
         :aria-expanded="showMobileMenu"
       >
         <span class="sr-only">Open main menu</span>
-        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 17 14">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
         </svg>
       </button>
 
       <!-- Navigation items -->
       <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-        <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-sky-200 rounded-lg bg-sky-100 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-sky-50 dark:bg-sky-800 md:dark:bg-sky-900 dark:border-sky-700">
+        <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white">
           <li>
             <Link 
               :href="route('resident.dashboard')" 
-              class="block py-2 px-3 text-white bg-sky-600 rounded md:bg-transparent md:text-sky-600 md:p-0 dark:text-sky-100 md:dark:text-sky-400" 
+              :class="[
+                'block py-2 px-3 rounded md:border-0 md:p-0 transition-colors duration-200',
+                route().current('resident.dashboard') 
+                  ? 'text-white bg-blue-600 md:text-blue-600 md:bg-transparent' 
+                  : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600'
+              ]"
               aria-current="page"
             >
-              Dashboard
+              Home
             </Link>
           </li>
+          
           <li>
-           <Link 
+            <Link 
               :href="route('resident.assistance.index')" 
               :class="[
-                'block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-sky-600 md:p-0 dark:hover:bg-sky-700 dark:hover:text-white md:dark:hover:bg-transparent',
+                'block py-2 px-3 rounded md:border-0 md:p-0 transition-colors duration-200',
                 route().current('resident.assistance.index') 
-                  ? 'text-sky-600 bg-sky-200 md:bg-transparent md:text-sky-600 dark:text-sky-400' 
-                  : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 md:dark:hover:text-sky-400'
+                  ? 'text-white bg-blue-600 md:text-blue-600 md:bg-transparent' 
+                  : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600'
               ]"
             >
               Assistance
@@ -51,38 +62,70 @@
           
           <li>
             <Link 
-              :href="route('resident.feedback.index')" 
+              :href="route('resident.report.index')" 
               :class="[
-                'block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-sky-600 md:p-0 dark:hover:bg-sky-700 dark:hover:text-white md:dark:hover:bg-transparent',
-                route().current('resident.feedback.index') 
-                  ? 'text-sky-600 bg-sky-200 md:bg-transparent md:text-sky-600 dark:text-sky-400' 
-                  : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 md:dark:hover:text-sky-400'
+                'block py-2 px-3 rounded md:border-0 md:p-0 transition-colors duration-200',
+                route().current('resident.report.index') 
+                  ? 'text-white bg-blue-600 md:text-blue-600 md:bg-transparent' 
+                  : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600'
               ]"
+            >
+              Report Issue
+            </Link>
+          </li>
+          
+          <!-- Feedback Dropdown -->
+          <li class="relative">
+            <button 
+              @click="toggleFeedbackDropdown"
+              :class="[
+                'flex items-center justify-between w-full py-2 px-3 rounded md:border-0 md:p-0 md:hover:bg-transparent transition-colors duration-200',
+                (route().current('resident.feedback.index') || route().current('resident.experience.index'))
+                  ? 'text-white bg-blue-600 md:text-blue-600 md:bg-transparent' 
+                  : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600'
+              ]"
+              aria-expanded="false"
             >
               Feedback
-            </Link>
+              <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+              </svg>
+            </button>
+            
+            <!-- Dropdown menu -->
+            <div 
+              v-show="showFeedbackDropdown"
+              class="absolute top-full left-0 z-10 bg-white divide-y divide-gray-100 rounded-lg shadow-lg w-44 border border-gray-200 mt-1"
+            >
+              <ul class="py-2 text-sm text-gray-700">
+                <li>
+                  <Link 
+                    :href="route('resident.feedback.index')" 
+                    class="block px-4 py-2 hover:bg-gray-100 transition-colors duration-200"
+                  >
+                    Service Feedback
+                  </Link>
+                </li>
+                <li>
+                  <Link 
+                    :href="route('resident.experience.index')" 
+                    class="block px-4 py-2 hover:bg-gray-100 transition-colors duration-200"
+                  >
+                    Experience Feedback
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </li>
+          
           <li>
             <Link 
-              :href="route('resident.experience.index')" 
-              :class="[
-                'block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-sky-600 md:p-0 dark:hover:bg-sky-700 dark:hover:text-white md:dark:hover:bg-transparent',
-                route().current('resident.experience.index') 
-                  ? 'text-sky-600 bg-sky-200 md:bg-transparent md:text-sky-600 dark:text-sky-400' 
-                  : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 md:dark:hover:text-sky-400'
-              ]"
-            >
-              Service Experience
-            </Link>
-          </li>
-          <li>
-             <Link 
               :href="route('resident.about.index')" 
               :class="[
-                'block py-2 px-3 rounded md:hover:bg-transparent md:border-0 md:hover:text-sky-600 md:p-0 dark:hover:bg-sky-700 dark:hover:text-white md:dark:hover:bg-transparent',
+                'block py-2 px-3 rounded md:border-0 md:p-0 transition-colors duration-200',
                 route().current('resident.about.index') 
-                  ? 'text-sky-600 bg-sky-200 md:bg-transparent md:text-sky-600 dark:text-sky-400' 
-                  : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 md:dark:hover:text-sky-400'
+                  ? 'text-white bg-blue-600 md:text-blue-600 md:bg-transparent' 
+                  : 'text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-600'
               ]"
             >
               About
@@ -92,49 +135,84 @@
       </div>
 
       <!-- User dropdown -->
-    <div class="hidden md:flex items-center md:order-2 space-x-1 md:space-x-0 rtl:space-x-reverse relative">
+      <div class="hidden md:flex items-center md:order-2 space-x-3 relative">
+        <!-- My Requests Link -->
+  <Link 
+    :href="route('resident.myrequest.index')" 
+    class="relative bg-transparent px-4 py-1 flex items-center text-[17px] font-semibold no-underline cursor-pointer border border-blue-500 rounded-[25px] outline-none overflow-hidden text-blue-500 transition-colors duration-300 ease-out delay-100 text-center group hover:text-white hover:border-blue-500"
+  >
+    <!-- Pseudo element for hover effect -->
+    <span class="absolute top-0 left-0 right-0 bottom-0 m-auto rounded-full block w-80 h-80 -left-20 transition-all duration-500 ease-out -z-10 group-hover:shadow-[inset_0_0_0_10em_rgb(40,144,241)]"></span>
+    
+    <span class="mx-2.5 relative z-10">
+      myAction
+    </span>
+  </Link>
+        
+        <!-- Notifications Button -->
+        <!-- <button class="relative p-2 text-gray-500 rounded-lg hover:bg-gray-100 transition-colors duration-200">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+          </svg>
+          <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+        </button> -->
+
         <button 
           @click="toggleUserDropdown"
           type="button" 
-          class="flex items-center justify-between py-2 px-3 text-gray-900 bg-gray-100 rounded-lg hover:bg-gray-200 md:hover:bg-gray-200 md:border-0 md:hover:text-blue-700 dark:text-white dark:bg-gray-700 md:dark:hover:text-blue-500 dark:focus:text-white dark:hover:bg-gray-600 md:dark:hover:bg-gray-600"
+          class="flex items-center justify-center w-8 h-8 bg-blue-600 rounded-full hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-colors duration-200"
           id="user-menu-button" 
           :aria-expanded="showUserDropdown"
         >
-          <svg class="w-5 h-5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9.183 14h1.634a3.987 3.987 0 0 1 4.134 2.512A8.949 8.949 0 0 1 10 18Z"/>
-          </svg>
-         
+          <span class="text-white font-medium text-sm">
+            {{ getUserInitials($page.props.auth.user.name) }}
+          </span>
         </button>
         
-        <!-- Dropdown menu -->
+        <!-- User Dropdown menu -->
         <div 
           v-show="showUserDropdown"
-          class="absolute left-0 top-12 z-10 font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600" 
+          class="absolute right-0 top-12 z-50 w-56 bg-white divide-y divide-gray-100 rounded-lg shadow-lg border border-gray-200" 
           id="user-dropdown"
         >
-          <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="user-menu-button">
+          <!-- User Info Header -->
+          <div class="px-4 py-3">
+            <div class="flex items-center space-x-3">
+              <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium">
+                {{ getUserInitials($page.props.auth.user.name) }}
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-gray-900 truncate">
+                  {{ $page.props.auth.user.name }}
+                </p>
+                <p class="text-sm text-gray-500 truncate">
+                  {{ $page.props.auth.user.email }}
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Menu Items -->
+          <ul class="py-2 text-sm text-gray-700">
             <li>
               <Link 
                 :href="route('profile.edit')" 
-                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                class="block px-4 py-2 hover:bg-gray-100 transition-colors duration-200"
               >
-                Profile
+                Profile Settings
               </Link>
             </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                Settings
-              </a>
-            </li>
           </ul>
-          <div class="py-1">
+          
+          <!-- Sign Out -->
+          <div class="py-2">
             <Link 
               :href="route('logout')" 
               method="post" 
               as="button"
-              class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+              class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 transition-colors duration-200"
             >
-              Sign out
+              Sign Out
             </Link>
           </div>
         </div>
@@ -144,104 +222,170 @@
     <!-- Mobile menu -->
     <div 
       v-show="showMobileMenu"
-      class="w-full md:hidden" 
+      class="w-full md:hidden bg-white border-t border-gray-200" 
       id="navbar-mobile"
     >
-      <ul class="font-medium flex flex-col p-4 mt-4 border border-sky-200 rounded-lg bg-sky-100 dark:bg-sky-800 dark:border-sky-700">
-        <li>
+      <div class="px-4 py-4 space-y-3">
+        <!-- Mobile Navigation Links -->
+        <div class="space-y-1">
           <Link 
             :href="route('resident.dashboard')" 
-            class="block py-2 px-3 text-white bg-sky-600 rounded" 
-            aria-current="page"
+            :class="[
+              'block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200',
+              route().current('resident.dashboard') 
+                ? 'text-white bg-blue-600' 
+                : 'text-gray-900 hover:bg-gray-100'
+            ]"
           >
-            Dashboard
+            Home
           </Link>
-        </li>
-        <li>
+          
           <Link 
             :href="route('resident.assistance.index')" 
             :class="[
-              'block py-2 px-3 rounded',
+              'block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200',
               route().current('resident.assistance.index') 
-                ? 'text-white bg-sky-600' 
-                : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 dark:hover:bg-sky-700'
+                ? 'text-white bg-blue-600' 
+                : 'text-gray-900 hover:bg-gray-100'
             ]"
           >
-           Request Assistance
+            Assistance
           </Link>
           
-        </li>
-        <li>
           <Link 
-            :href="route('resident.feedback.index')" 
+            :href="route('resident.report.index')" 
             :class="[
-              'block py-2 px-3 rounded',
-              route().current('resident.feedback.index') 
-                ? 'text-white bg-sky-600' 
-                : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 dark:hover:bg-sky-700'
+              'block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200',
+              route().current('resident.report.index') 
+                ? 'text-white bg-blue-600' 
+                : 'text-gray-900 hover:bg-gray-100'
             ]"
           >
-            Feedback
+            Report Issue
           </Link>
-        </li>
-        <li>
-         <Link 
-            :href="route('resident.experience.index')" 
-            :class="[
-              'block py-2 px-3 rounded',
-              route().current('resident.experience.index') 
-                ? 'text-white bg-sky-600' 
-                : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 dark:hover:bg-sky-700'
-            ]"
-          >
-            Service Experience
-          </Link>
-        </li>
-        <li>
-        <Link 
+          
+          <!-- Mobile Feedback Section -->
+          <div>
+            <button 
+              @click="toggleMobileFeedbackDropdown"
+              :class="[
+                'flex items-center justify-between w-full px-3 py-2 rounded-md text-base font-medium transition-colors duration-200',
+                (route().current('resident.feedback.index') || route().current('resident.experience.index'))
+                  ? 'text-white bg-blue-600' 
+                  : 'text-gray-900 hover:bg-gray-100'
+              ]"
+            >
+              Feedback
+              <svg 
+                :class="[
+                  'w-4 h-4 transition-transform duration-200',
+                  showMobileFeedbackDropdown ? 'rotate-180' : ''
+                ]" 
+                fill="currentColor" 
+                viewBox="0 0 20 20"
+              >
+                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+              </svg>
+            </button>
+            
+            <div v-show="showMobileFeedbackDropdown" class="ml-4 mt-1 space-y-1">
+              <Link 
+                :href="route('resident.feedback.index')" 
+                :class="[
+                  'block px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200',
+                  route().current('resident.feedback.index') 
+                    ? 'text-white bg-blue-600' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                ]"
+              >
+                Service Feedback
+              </Link>
+              
+              <Link 
+                :href="route('resident.experience.index')" 
+                :class="[
+                  'block px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200',
+                  route().current('resident.experience.index') 
+                    ? 'text-white bg-blue-600' 
+                    : 'text-gray-700 hover:bg-gray-100'
+                ]"
+              >
+                Service Experience
+              </Link>
+            </div>
+          </div>
+          
+          <Link 
             :href="route('resident.about.index')" 
             :class="[
-              'block py-2 px-3 rounded',
+              'block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200',
               route().current('resident.about.index') 
-                ? 'text-white bg-sky-600' 
-                : 'text-sky-800 hover:bg-sky-200 dark:text-sky-100 dark:hover:bg-sky-700'
+                ? 'text-white bg-blue-600' 
+                : 'text-gray-900 hover:bg-gray-100'
             ]"
           >
             About
           </Link>
-        </li>
+          
+  <Link 
+    :href="route('resident.myrequest.index')" 
+    :class="[
+      'relative inline-flex items-center px-3 py-1 font-semibold rounded-2xl outline-none overflow-hidden transition-all duration-300 group',
+      route().current('resident.myrequest.index') 
+        ? 'bg-transparent border border-blue-500 text-blue-500 hover:text-white md:bg-blue-100 md:text-blue-800 md:border-none md:hover:text-blue-900' 
+        : 'bg-transparent border border-blue-500 text-blue-500 hover:text-white md:bg-transparent md:text-gray-600 md:hover:text-blue-600 md:border-none'
+    ]"
+  >
+    <!-- Hover effect circle for mobile -->
+    <span class="absolute top-0 left-0 right-0 bottom-0 m-auto rounded-full block w-80 h-80 -left-20 transition-all duration-500 ease-out -z-10 md:hidden group-hover:shadow-[inset_0_0_0_10em_rgb(40,144,241)]"></span>
+    
+    <span class="relative z-10">
+      myAction
+    </span>
+  </Link>
+        </div>
         
-        
-        <li class="border-t border-sky-300 dark:border-sky-600 pt-2 mt-2">
-          <div class="px-3 py-2">
-            <span class="block text-sm font-medium text-sky-800 dark:text-sky-100">{{ $page.props.auth.user.name }}</span>
-            <span class="block text-sm text-sky-600 dark:text-sky-300">{{ $page.props.auth.user.email }}</span>
+        <!-- Mobile User Section -->
+        <div class="border-t border-gray-200 pt-4 mt-4">
+          <div class="flex items-center px-3 py-2 bg-gray-50 rounded-md">
+            <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium">
+              {{ getUserInitials($page.props.auth.user.name) }}
+            </div>
+            <div class="ml-3 flex-1 min-w-0">
+              <p class="text-sm font-medium text-gray-900 truncate">
+                {{ $page.props.auth.user.name }}
+              </p>
+              <p class="text-sm text-gray-500 truncate">
+                {{ $page.props.auth.user.email }}
+              </p>
+            </div>
           </div>
-        </li>
-        <li>
-          <Link 
-            :href="route('profile.edit')" 
-            class="block py-2 px-3 text-sky-800 rounded hover:bg-sky-200 dark:text-sky-100 dark:hover:bg-sky-700"
-          >
-            Profile
-          </Link>
-        </li>
-        <li>
-          <Link 
-            :href="route('logout')" 
-            method="post" 
-            as="button"
-            class="block w-full text-left py-2 px-3 text-sky-800 rounded hover:bg-sky-200 dark:text-sky-100 dark:hover:bg-sky-700"
-          >
-            Sign out
-          </Link>
-        </li>
-      </ul>
+          
+          <!-- Mobile User Menu -->
+          <div class="mt-3 space-y-1">
+            <Link 
+              :href="route('profile.edit')" 
+              class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-100 transition-colors duration-200"
+            >
+              Profile Settings
+            </Link>
+            
+            <Link 
+              :href="route('logout')" 
+              method="post" 
+              as="button"
+              class="block w-full text-left px-3 py-2 text-base font-medium text-red-600 rounded-md hover:bg-gray-100 transition-colors duration-200"
+            >
+              Sign Out
+            </Link>
+          </div>
+        </div>
+      </div>
     </div>
   </nav>
 
   <!-- Page Content -->
-  <main>
+  <main class="min-h-screen bg-gray-50">
     <slot />
   </main>
 </template>
@@ -253,11 +397,14 @@ import { Link } from '@inertiajs/vue3';
 
 const showMobileMenu = ref(false);
 const showUserDropdown = ref(false);
+const showFeedbackDropdown = ref(false);
+const showMobileFeedbackDropdown = ref(false);
 
 const toggleMobileMenu = () => {
   showMobileMenu.value = !showMobileMenu.value;
   if (showMobileMenu.value) {
     showUserDropdown.value = false;
+    showFeedbackDropdown.value = false;
   }
 };
 
@@ -265,7 +412,20 @@ const toggleUserDropdown = () => {
   showUserDropdown.value = !showUserDropdown.value;
   if (showUserDropdown.value) {
     showMobileMenu.value = false;
+    showFeedbackDropdown.value = false;
   }
+};
+
+const toggleFeedbackDropdown = () => {
+  showFeedbackDropdown.value = !showFeedbackDropdown.value;
+  if (showFeedbackDropdown.value) {
+    showUserDropdown.value = false;
+    showMobileMenu.value = false;
+  }
+};
+
+const toggleMobileFeedbackDropdown = () => {
+  showMobileFeedbackDropdown.value = !showMobileFeedbackDropdown.value;
 };
 
 const getUserInitials = (name) => {
@@ -281,6 +441,11 @@ const handleClickOutside = (event) => {
   if (!event.target.closest('#user-menu-button') && !event.target.closest('#user-dropdown')) {
     showUserDropdown.value = false;
   }
+  
+  if (!event.target.closest('button[aria-expanded]') && !event.target.closest('.absolute')) {
+    showFeedbackDropdown.value = false;
+  }
+  
   if (!event.target.closest('[aria-controls="navbar-default"]') && !event.target.closest('#navbar-mobile')) {
     showMobileMenu.value = false;
   }
