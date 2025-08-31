@@ -476,6 +476,7 @@ const getIntakeStatusClass = (status) => {
     'PENDING': 'bg-yellow-100 text-yellow-800 border border-yellow-200',
     'IN_PROGRESS': 'bg-blue-100 text-blue-800 border border-blue-200',
     'VERIFIED': 'bg-green-100 text-green-800 border border-green-200',
+    'COMPLETED': 'bg-green-100 text-green-800 border border-green-200',
     'REJECTED': 'bg-red-100 text-red-800 border border-red-200'
   };
   return classes[status] || 'bg-gray-100 text-gray-800 border border-gray-200';
@@ -486,6 +487,7 @@ const getIntakeStatusDotClass = (status) => {
     'PENDING': 'bg-yellow-500 animate-pulse',
     'IN_PROGRESS': 'bg-blue-500 animate-pulse',
     'VERIFIED': 'bg-green-500',
+    'COMPLETED': 'bg-green-500',
     'REJECTED': 'bg-red-500'
   };
   return classes[status] || 'bg-gray-500';

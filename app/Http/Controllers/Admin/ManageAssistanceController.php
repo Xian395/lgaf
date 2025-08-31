@@ -35,7 +35,7 @@ class ManageAssistanceController extends Controller
     {
         try {
             $validated = $request->validate([
-                'status' => 'required|in:PENDING,IN_PROGRESS,VERIFIED,REJECTED',
+                'status' => 'required|in:PENDING,IN_PROGRESS,VERIFIED,COMPLETED,REJECTED',
                 'social_worker_assistance' => 'nullable|string',
             ]);
 

@@ -185,26 +185,7 @@
           </div>
           
           <!-- Menu Items -->
-          <ul class="py-2 text-sm text-gray-700">
-            <li>
-              <Link 
-                :href="route('profile.edit')" 
-                class="block px-4 py-2 hover:bg-gray-100 transition-colors duration-200"
-              >
-                Profile Settings
-              </Link>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors duration-200">
-                Preferences
-              </a>
-            </li>
-            <li>
-              <a href="#" class="block px-4 py-2 hover:bg-gray-100 transition-colors duration-200">
-                Help & Support
-              </a>
-            </li>
-          </ul>
+          
           
           <!-- Sign Out -->
           <div class="py-2">
@@ -338,18 +319,7 @@
           
           <!-- Mobile User Menu -->
           <div class="mt-3 space-y-1">
-            <Link 
-              :href="route('profile.edit')" 
-              class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-100 transition-colors duration-200"
-            >
-              Profile Settings
-            </Link>
-            <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-100 transition-colors duration-200">
-              Preferences
-            </a>
-            <a href="#" class="block px-3 py-2 text-base font-medium text-gray-900 rounded-md hover:bg-gray-100 transition-colors duration-200">
-              Help & Support
-            </a>
+           
             <Link 
               :href="route('logout')" 
               method="post" 
