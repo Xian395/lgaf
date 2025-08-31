@@ -13,7 +13,6 @@
                 class="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-r from-indigo-400/10 to-blue-400/10 rounded-full filter blur-xl animate-pulse delay-1000"
             ></div>
         </div>
-
         <!-- Header -->
         <header
             class="relative z-10 bg-white/80 backdrop-blur-md border-b border-gray-200/50"
@@ -55,16 +54,21 @@
                             </p>
                         </div>
                     </div>
-
                     <!-- Help Link -->
                     <div class="flex items-center space-x-4">
-                        <a
-                            href="#"
-                            class="text-sm text-blue-600 hover:text-blue-800 font-medium transition-colors"
-                            >Help</a
-                        >
-                        <div class="h-6 border-l border-gray-300"></div>
-                        <span class="text-sm text-gray-500">English</span>
+                        <img
+                            src="/icon2.png"
+                            alt="LGU Connect Logo"
+                            class="h-10 w-10"
+                        />
+                        <div class="flex flex-col">
+                            <span class="text-xl font-bold text-blue-600">
+                                LGU Connect
+                            </span>
+                            <span class="text-xs text-gray-500 font-medium">
+                                Citizen Portal
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
