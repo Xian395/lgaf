@@ -34,7 +34,12 @@
                                 class="h-12 w-12 object-contain"
                             />
                             <img
-                                src="/SEAL.png"
+                                src="/bbm.png"
+                                alt="Tubod Municipal Seal"
+                                class="h-12 w-12 object-contain"
+                            />
+                            <img
+                                src="/DSWD.png"
                                 alt="Tubod Municipal Seal"
                                 class="h-12 w-12 object-contain"
                             />
