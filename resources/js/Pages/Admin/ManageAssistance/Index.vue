@@ -525,9 +525,6 @@
                                                 <option value="VERIFIED">
                                                     Verified
                                                 </option>
-                                                <option value="APPROVED">
-                                                    Approved
-                                                </option>
                                                 <option value="REJECTED">
                                                     Rejected
                                                 </option>
@@ -543,10 +540,13 @@
                                                     'block w-full rounded-md text-sm focus:border-indigo-500 focus:ring-indigo-500 disabled:opacity-50 font-medium',
                                                     getStatusClass(
                                                         request.status ||
-                                                            'APPROVED'
+                                                            'VERIFIED'
                                                     ),
                                                 ]"
                                             >
+                                                <option value="VERIFIED">
+                                                    Verified
+                                                </option>
                                                 <option value="APPROVED">
                                                     Approved
                                                 </option>
@@ -787,14 +787,14 @@ const activeRequests = computed(() => {
     return props.assistanceRequests.filter(
         (request) => {
             const status = request.status || "PENDING";
-            return !["APPROVED", "COMPLETED"].includes(status);
+            return ["PENDING", "IN_PROGRESS", "REJECTED"].includes(status);
         }
     );
 });
 
 const approvedRequests = computed(() => {
     return props.assistanceRequests.filter(
-        (request) => request.status === "APPROVED"
+        (request) => ["VERIFIED", "APPROVED"].includes(request.status)
     );
 });
 
